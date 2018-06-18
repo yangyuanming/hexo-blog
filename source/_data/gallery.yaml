@@ -1,0 +1,11 @@
+#Name:
+ #   full_link: http://example.com/full-image.png
+ #   thumb_link: http://example.com/thumb-image.png
+  #  descr: "这是一个描述"
+
+#添加多张图片，只需要根据上面的格式重复填写即可。
+
+#将 Name 改为图片名字，例如 Material。
+#http://example.com/full-image.png 为完整图片的地址。
+#http://example.com/thumb-image.png 为图片缩略图的地址，如果没有缩略图也可使用完整图片的地址。
+#这是一个描述 为图片描述。
