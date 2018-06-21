@@ -110,10 +110,9 @@ disqus_shortname: false
 # 是否开启友言评论, 填写友言用户id
 uyan_uid: false
 # 是否使用 gitment，https://github.com/imsun/gitment
-
- gitment: 
-   owner: yangyuanming
-   repo: yangyuanming.github.io
+gitment: 
+  owner: yangyuanming
+  repo: yangyuanming.github.io
   client_id: ${CLIENT_ID}
   client_secret: ${CLIENT_SECRET}
 
