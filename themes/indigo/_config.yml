@@ -111,7 +111,7 @@ disqus_shortname: false
 uyan_uid: false
 # 是否使用 gitment，https://github.com/imsun/gitment
 
- gitment: ture
+ gitment: 
    owner: yangyuanming
    repo: yangyuanming.github.io
   client_id: ${CLIENT_ID}
