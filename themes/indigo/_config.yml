@@ -110,21 +110,21 @@ disqus_shortname: false
 # 是否开启友言评论, 填写友言用户id
 uyan_uid: false
 # 是否使用 gitment，https://github.com/imsun/gitment
-gitment: 
-  owner: yangyuanming
-  repo: yangyuanming.github.io
-  client_id: ${CLIENT_ID}
-  client_secret: ${CLIENT_SECRET}
+gitment: false
+ # owner: yangyuanming
+ # repo: yangyuanming.github.io
+  #client_id: ${CLIENT_ID}
+ # client_secret: ${CLIENT_SECRET}
 
 # Valine Comment system. https://valine.js.org
 valine:
-  enable: false # 如果你想使用valine，请将值设置为 true
-  appId:  # your leancloud appId
-  appKey:  # your leancloud appKey
+  enable: true # 如果你想使用valine，请将值设置为 true
+  appId:  ${APP_ID} # your leancloud appId
+  appKey: ${APP_KEY} # your leancloud appKey
   notify: false # Mail notify
-  verify: false # Verify code
+  verify: true # Verify code
   avatar: mm # Gravatar style : mm/identicon/monsterid/wavatar/retro/hide
-  placeholder: Just go go # Comment Box placeholder
+  placeholder: 留下你的邮箱可以收到我的回复哦ε==(づ′▽`)づ # Comment Box placeholder
   guest_info: nick,mail,link # Comment header info
   pageSize: 10 # comment list page size
 
