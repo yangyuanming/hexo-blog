@@ -68,16 +68,16 @@ comment:
     livere: # enter livere uid here
     valine: # Valine Comment System https://github.com/xCss/Valine
         on: false # enter true to enable
-        appId: ${APP_ID} # enter the leancloud application appId here
-        appKey: ${APP_KEY} # enter the leancloud application appKey here
+        appId: xX93OOtPsALUr1iDoSVFzAfw-gzGzoHsz # enter the leancloud application appId here
+        appKey: 3vtqrSui6oEwCorCECd1PtAI # enter the leancloud application appKey here
         notify: false # enter true to enable <Mail notifier> https://github.com/xCss/Valine/wiki/Valine-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%82%AE%E4%BB%B6%E6%8F%90%E9%86%92%E8%AE%BE%E7%BD%AE
         verify: false # enter true to enable <Validation code>
         placeholder: 留下你的邮箱可以接收到我的回复哦ε==(づ′▽`)づ # enter the comment box placeholder
     valine_modify: # Valine Comment System https://github.com/xCss/Valine
         on: true # enter true to enable
         smiles_url: http://yangyuanming.com/smiles/
-        app_id: ${APP_ID} # enter the leancloud application appId here
-        app_key: ${APP_KEY} # enter the leancloud application appKey here
+        app_id: xX93OOtPsALUr1iDoSVFzAfw-gzGzoHsz # enter the leancloud application appId here
+        app_key: 3vtqrSui6oEwCorCECd1PtAI # enter the leancloud application appKey here
         placeholder: 留下你的邮箱可以收到我的回复哦ε==(づ′▽`)づ # enter the comment box placeholder
 # Share
 share: default # options: jiathis, bdshare, addtoany, default
