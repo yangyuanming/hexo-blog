@@ -1,0 +1,18 @@
+<% if (theme.valine.enable_modify ){ %>
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="/js/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        new Valine({
+                av: AV,
+                el: '#valine_modify-thread',
+                smiles_url: '<%= theme.comment.valine_modify.smiles_url %>',
+                app_id: '<%= theme.comment.valine_modify.app_id %>',
+                app_key: '<%= theme.comment.valine_modify.app_key %>',
+                placeholder: '<%= theme.comment.valine_modify.placeholder %>',
+            });
+    </script>
+    <!-- Valine Comments end -->
+<% } %>
