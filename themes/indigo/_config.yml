@@ -130,7 +130,7 @@ valine:
 
 valine_modify: # Valine Comment System https://github.com/xCss/Valine
   enable: true # enter true to enable
-  smiles_url: http://yangyuanming.com/smiles/
+  smiles_url: http://yangyuanming.com/smiles
   verity: true
   app_id: ${APP_ID} # enter the leancloud application appId here
   app_key: ${APP_KEY} # enter the leancloud application appKey here
