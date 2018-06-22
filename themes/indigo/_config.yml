@@ -126,7 +126,8 @@ valine:
   avatar: mm # Gravatar style : mm/identicon/monsterid/wavatar/retro/hide
   placeholder: 留下你的邮箱可以收到我的回复哦ε==(づ′▽`)づ # Comment Box placeholder
   guest_info: nick,mail,link # Comment header info
-  pageSize: 10 # comment list page sizeß
+  pageSize: 10 # comment list page size
+  
 
 valine_modify: # Valine Comment System https://github.com/xCss/Valine
   enable: true # enter true to enable
