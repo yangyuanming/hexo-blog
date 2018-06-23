@@ -124,7 +124,7 @@ valine:
   notify: true # Mail notify
   verify: true # Verify code
   avatar: mm # Gravatar style : mm/identicon/monsterid/wavatar/retro/hide
-  placeholder: 留下你的邮箱可以收到我的回复哦ε==(づ′▽`)づ # Comment Box placeholder
+  placeholder: 不说点什么吗……没关系，反正我也不一定看到(发email呗)ε==(づ′▽`)づ # Comment Box placeholder
   guest_info: nick,mail,link # Comment header info
   pageSize: 10 # comment list page size
   
