@@ -81,7 +81,7 @@ backtop:
 donation:
   show: true
   btn_text: 支持一下
-  tip: 扫一扫，支持Yuanming
+  tip: 打赏Yuanming
   items:
     - type: 微信
       text: 微信ヽ(ﾟ∀ﾟ)ﾒ(ﾟ∀ﾟ)ﾉ
@@ -158,7 +158,7 @@ baidu_analytics:
 valine:
   enable: true # 如果使用valine，请设置改之为true
   appid: snQG2BlnuDUYlMKA3QV7n02L-gzGzoHsz # your leancloud application appid
-  appkey:  74MpPI7wyUFhF7AQyckc8Uad # your leancloud application appkey
+  appkey: 74MpPI7wyUFhF7AQyckc8Uad # your leancloud application appkey
   notify: true # mail notifier , https://github.com/xCss/Valine/wiki
   verify: true # Verification code
   placeholder: 不说点什么吗……没关系，反正我也不一定看到(发email呗)ε==(づ′▽`)づ # comment box placeholder
@@ -206,7 +206,7 @@ link:
   - name: YYm
     info: 迷途少年
     url: http://yym.im/
-    avatar: 
+    avatar: http://yym.im/favcion.ico
   
 #项目
 project:
