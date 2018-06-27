@@ -84,7 +84,6 @@ Plugins:
    - hexo-generator-feed
    - hexo-generator-sitemap
    - hexo-renderer-mathjax
-   - hexo-search
 
 
 sitemap:
