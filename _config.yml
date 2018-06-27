@@ -83,6 +83,8 @@ pagination_dir: page
 Plugins:
    - hexo-generator-feed
    - hexo-generator-sitemap
+   - hexo-renderer-mathjax
+   - hexo-search
 
 
 sitemap:
@@ -176,7 +178,7 @@ jsonContent:
     tags: true
 
 
-theme: indigo
+theme: fexo
 
 ##file search
 search:

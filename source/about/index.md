@@ -1,4 +1,5 @@
 ---
-title: About
-date: 2018-04-15 10:45:00
+title: about
+layout: about
+comments: false
 ---
