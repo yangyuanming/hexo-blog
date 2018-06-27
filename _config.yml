@@ -93,6 +93,11 @@ feed:
    type: atom
    path: atom.xml
    limit: 0
+#hexo-search
+search:
+  path: search.json
+  source: all # other values: posts, pages
+  trim_html: false
 
 symbols_count_time:
   symbols: false
