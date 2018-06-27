@@ -65,7 +65,7 @@ search_slogan:
 
 link_slogan:
   isShow: true # true|fase
-  text: 交换友链可以邮件 yuanming.yang@qq.com
+  text: 交换友链:yuanming.yang@qq.com
 
 
 # set backtop show or hide
@@ -181,7 +181,7 @@ about:
   - type: me
     icon: icon-user
     text_value:
-    - "Scut，1991，Spring."
+    - "GDUT , IMIS."
     - "喜欢听音乐、看电影，擅长编程，喜欢睡懒觉，死宅."
     - "后台开发工程师，常用 Spring / Spring MVC / Mybatis."
   - type: Github
@@ -213,7 +213,7 @@ project:
   - type: personal
     name: yangyuanming.github.io
     url: https://github.com/yangyuanming/yangyuanming.github.io
-    intro: my blog
+    intro: My Blog
   # - type: company
   #   name: Fexo
   #   url: https://github.com/forsigner/fexo
