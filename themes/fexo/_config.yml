@@ -80,7 +80,7 @@ backtop:
 
 donation:
   show: true
-  btn_text: 支持一下
+  btn_text: 打赏
   tip: 打赏Yuanming
   items:
     - type: 微信
