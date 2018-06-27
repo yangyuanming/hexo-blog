@@ -83,7 +83,6 @@ pagination_dir: page
 Plugins:
    - hexo-generator-feed
    - hexo-generator-sitemap
-#  - hexo-renderer-mathjax
 
 
 sitemap:
