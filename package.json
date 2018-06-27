@@ -27,7 +27,6 @@
     "hexo-helper-post-top": "0.0.1",
     "hexo-helper-qrcode": "^1.0.2",
     "hexo-inject": "^1.0.0",
-    "hexo-math": "^3.0.4",
     "hexo-pagination": "^0.1.0",
     "hexo-renderer-ejs": "^0.3.1",
     "hexo-renderer-less": "^0.2.0",
