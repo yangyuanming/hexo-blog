@@ -1,6 +1,6 @@
 # Blog info
 blog_name: Yang Yuanming
-slogan: Ask for why
+slogan: Stay hungry, stay foolish.s
 url: http://yangyuanming.com
 
 # Set avatar (Absolute url and relative url)
@@ -18,7 +18,7 @@ home_nav:
     target_blank: false #不在新页面打开
   - name: Project
     url: /project/
-    target_blank: true #在新页面打开
+    target_blank: false #在新页面打开
   - name: Github
     url: https://github.com/yangyuanming
     target_blank: true
@@ -61,7 +61,7 @@ toolbox:
 
 search_slogan:
   isShow: true # true|fase
-  text: Ask for why ~
+  text: Stay hungry, stay foolish ~
 
 link_slogan:
   isShow: true # true|fase
