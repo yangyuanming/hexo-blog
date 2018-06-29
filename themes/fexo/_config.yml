@@ -35,9 +35,9 @@ page_nav:
   - name: 标签
     url: /tag/
     target_blank: false
-  #- name: 友链
-  #  url: /link/
-  #  target_blank: false
+  - name: 友链
+    url: /link/
+    target_blank: false
   - name: 关于
     url: /about/
     target_blank: false
@@ -203,10 +203,10 @@ about:
     text_value: Guangzhou
 #友情链接
 link:
- # - name: Yuanming
- #   info: 迷途少年
- #   url: http://yym.im/
- #   avatar: http://yym.im/favcion.ico
+  - name: Yuanming
+    info: 少年
+    url: http://yym.im/
+    avatar: http://yangyuanming.com/images/favcion.ico
   
 #项目
 project:
