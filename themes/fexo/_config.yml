@@ -84,10 +84,10 @@ donation:
   tip: 扫一扫ヽ(ﾟ∀ﾟ)ﾒ(ﾟ∀ﾟ)ﾉ
   items:
     - type: 微信
-      text: (●´∀｀●)ﾉ
+      text: (๑•̀ㅂ•́)و✧
       imgUrl: /images/wechatpay.png
     - type: 支付宝
-      text: ﾍ(ﾟ∀ﾟﾍ)ｱﾋｬ
+      text: ヾ(^▽^ヾ)
       imgUrl: /images/alipay.png
 
 
