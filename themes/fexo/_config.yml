@@ -35,9 +35,9 @@ page_nav:
   - name: 标签
     url: /tag/
     target_blank: false
-  - name: 友链
-    url: /link/
-    target_blank: false
+  #- name: 友链
+  #  url: /link/
+  #  target_blank: false
   - name: 关于
     url: /about/
     target_blank: false
@@ -84,10 +84,10 @@ donation:
   tip: 扫一扫ヽ(ﾟ∀ﾟ)ﾒ(ﾟ∀ﾟ)ﾉ
   items:
     - type: 微信
-      text: 微信
+      text: (●´∀｀●)ﾉ
       imgUrl: /images/wechatpay.png
     - type: 支付宝
-      text: 支付宝
+      text: ﾍ(ﾟ∀ﾟﾍ)ｱﾋｬ
       imgUrl: /images/alipay.png
 
 
