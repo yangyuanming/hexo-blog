@@ -203,10 +203,10 @@ about:
     text_value: Guangzhou
 #友情链接
 link:
-  - name: Yuanming
-    info: 少年
-    url: http://yym.im/
-    avatar: http://yangyuanming.com/images/favicon.ico
+  - name: Test
+    info: 测试
+    url: http://icircles.top/
+    avatar: https://yangyuanming.com/images/favicon.ico
   
 #项目
 project:
