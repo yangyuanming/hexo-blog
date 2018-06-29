@@ -81,7 +81,7 @@ backtop:
 donation:
   show: true
   btn_text: 打赏
-  tip: 扫一扫ヽ(ﾟ∀ﾟ)ﾒ(ﾟ∀ﾟ)ﾉ
+  tip: 『扫』
   items:
     - type: 微信
       text: (๑•̀ㅂ•́)و✧
