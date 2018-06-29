@@ -81,13 +81,13 @@ backtop:
 donation:
   show: true
   btn_text: 打赏
-  tip: 打赏Yuanming
+  tip: 扫一扫ヽ(ﾟ∀ﾟ)ﾒ(ﾟ∀ﾟ)ﾉ
   items:
     - type: 微信
-      text: 微信ヽ(ﾟ∀ﾟ)ﾒ(ﾟ∀ﾟ)ﾉ
+      text: 微信
       imgUrl: /images/wechatpay.png
     - type: 支付宝
-      text: 支付宝ヽ(ﾟ∀ﾟ)ﾒ(ﾟ∀ﾟ)ﾉ
+      text: 支付宝
       imgUrl: /images/alipay.png
 
 
@@ -203,17 +203,17 @@ about:
     text_value: Guangzhou
 #友情链接
 link:
-  - name: Yuanming
-    info: 迷途少年
-    url: http://yym.im/
-    avatar: http://yym.im/favcion.ico
+ # - name: Yuanming
+ #   info: 迷途少年
+ #   url: http://yym.im/
+ #   avatar: http://yym.im/favcion.ico
   
 #项目
 project:
   - type: personal
     name: yangyuanming.github.io
     url: https://github.com/yangyuanming/yangyuanming.github.io
-    intro: My Blog
+    intro: My Hexo Blog
   # - type: company
   #   name: Fexo
   #   url: https://github.com/forsigner/fexo
