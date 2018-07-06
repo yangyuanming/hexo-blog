@@ -65,7 +65,7 @@ toolbox:
   text: 导航
 
 search_slogan:
-  isShow: true # true|fase
+  isShow: false # true|fase
   text: Go ~
 
 link_slogan:
