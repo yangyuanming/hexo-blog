@@ -190,17 +190,17 @@ about:
     - "后台开发工程师"
   - type: Github
     icon: icon-github
-    #text_key: Github
+    text_key: " "
     text_value: "yangyuanming"
     text_value_url: https://github.com/yangyuanming
   - type: weibo
     icon: icon-weibo
-    #text_key: 微博
+    text_key: " "
     text_value: "hitkoo"
     text_value_url: https://weibo.com/u/1926793802
   - type: mail
     icon: icon-mail
-    #text_key: 邮箱
+    text_key: " "
     text_value: yuanming.yang@qq.com
     text_value_url: "mailto:yuanming.yang@qq.com"
   - type: location
