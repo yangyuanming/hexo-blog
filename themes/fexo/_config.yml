@@ -75,8 +75,8 @@ link_slogan:
 
 # set backtop show or hide
 backtop:
-  home: true
-  archive: true
+  home: false
+  archive: false
   category: true
   tag: true
   post: true
