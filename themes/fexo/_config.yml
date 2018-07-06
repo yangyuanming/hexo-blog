@@ -29,6 +29,9 @@ page_nav:
   #- name: 博客
   #  url: /archives/
    # target_blank: false # 不在新页面打开
+  - name: 归档
+    url: /
+    target_blank: false #不在新页面打开
   - name: 分类
     url: /category/
     target_blank: false
@@ -75,7 +78,7 @@ link_slogan:
 
 # set backtop show or hide
 backtop:
-  home: false
+  home: true
   archive: false
   category: true
   tag: true
