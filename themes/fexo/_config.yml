@@ -1,6 +1,6 @@
 # Blog info
-blog_name: Yang Yuanming
-slogan: Stay hungry, stay foolish.
+blog_name: 杨远明的时光小屋
+slogan: 时光偷走了记忆，我试着留下痕迹
 url: http://yangyuanming.com
 
 # Set avatar (Absolute url and relative url)
@@ -10,7 +10,7 @@ avatar: /images/avatar.jpg
 favicon: /images/favicon.ico
 
 # For seo
-keywords: Yuanming,Yang Yuanming,后台,Java Web,Java,Spring MVC,Spring,Mybatis
+keywords: Yuanming,Yang Yuanming,杨远明
 
 home_nav:
   - name: Blog
@@ -26,27 +26,32 @@ home_nav:
 
 # config page nav
 page_nav:
-  - name: 博客
-    url: /archives/
-    target_blank: false # 不在新页面打开
+  #- name: 博客
+  #  url: /archives/
+   # target_blank: false # 不在新页面打开
   - name: 分类
     url: /category/
     target_blank: false
   - name: 标签
     url: /tag/
     target_blank: false
-  - name: 友链
-    url: /link/
-    target_blank: false
   - name: 关于
     url: /about/
     target_blank: false
-  - name: RSS
-    url: /atom.xml
-    target_blank: true # 在新页面打开
+  - name: 项目
+    url: /project/
+    target_blank: false #在新页面打开
   - name: 搜索
     url: /search/
     target_blank: false # 在新页面打开
+  - name: 友链
+    url: /link/
+    target_blank: false
+  #- name: RSS
+   # url: /atom.xml
+    #target_blank: true # 在新页面打开
+  
+
 
 page_nav_style: CIRCLE  # CIRCLE|ROUND_RECT
 
@@ -57,7 +62,7 @@ breadcrumb:
 # 盒子
 toolbox:
   isShow: true # true|fase
-  text: 盒子
+  text: 导航
 
 search_slogan:
   isShow: true # true|fase
@@ -70,8 +75,8 @@ link_slogan:
 
 # set backtop show or hide
 backtop:
-  home: false
-  archive: false
+  home: true
+  archive: true
   category: true
   tag: true
   post: true
@@ -115,7 +120,7 @@ blog_name_font_familiy: calligraffittiregular
 # blog_name_font_familiy: Lobster-Regular
 # blog_name_font_familiy: PoiretOne-Regular
 
-init_page_content: HOME_NAV  # HOME_NAV | POST
+init_page_content: POST  # HOME_NAV | POST
 
 
 # =========================================================
@@ -182,22 +187,23 @@ about:
     icon: icon-user
     text_value:
     - "IMIS,GDUT"
-    - "喜欢听音乐、看电影，擅长编程，喜欢睡懒觉，不爱运动，死宅."
-    - "后台开发工程师，常用 Spring / Spring MVC / Mybatis."
+    - "喜欢听音乐、看电影"
+    - "后台开发工程师"
   - type: Github
     icon: icon-github
     text_key: Github
-    text_value: "@yangyuanming"
+    text_value: "yangyuanming"
     text_value_url: https://github.com/yangyuanming
   - type: weibo
     icon: icon-weibo
     text_key: 微博
-    text_value: "@hitkoo"
+    text_value: "hitkoo"
     text_value_url: https://weibo.com/u/1926793802
   - type: mail
     icon: icon-mail
-    text_key: Qmail
-    text_value: "yuanming.yang@qq.com"
+    text_key: 邮箱
+    text_value: yuanming.yang@qq.com
+    text_value_url: "mailto:yuanming.yang@qq.com"
   - type: location
     icon: icon-location
     text_value: Guangzhou
