@@ -38,9 +38,9 @@ page_nav:
   - name: 关于
     url: /about/
     target_blank: false
-  - name: 项目
-    url: /project/
-    target_blank: false #在新页面打开
+  #- name: 项目
+   # url: /project/
+    #target_blank: false #在新页面打开
   - name: 搜索
     url: /search/
     target_blank: false # 在新页面打开
@@ -86,7 +86,7 @@ backtop:
 donation:
   show: true
   btn_text: 打赏
-  tip: 『扫』
+  tip: 『扫一扫』
   items:
     - type: 微信
       text: (๑•̀ㅂ•́)و✧
