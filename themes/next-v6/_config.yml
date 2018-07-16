@@ -45,10 +45,10 @@ cache:
 # For example, you put your favicons into `hexo-site/source/images` directory.
 # Then need to rename & redefine they on any other names, otherwise icons from Next will rewrite your custom icons in Hexo.
 favicon:
-  small: /images/favicon-16x16-next.png
-  medium: /images/favicon-32x32-next.png
-  apple_touch_icon: /images/apple-touch-icon-next.png
-  safari_pinned_tab: /images/logo.svg
+  small: /images/favicon.ico
+  medium: /images/favicon.ico
+  apple_touch_icon: /images/favicon.ico
+  safari_pinned_tab: /images/favicon.ico
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
@@ -298,8 +298,8 @@ codeblock:
 
 # Reward
 #reward_comment: Donate comment here
-wechatpay: /images/wechatpay.jpg
-alipay: /images/alipay.jpg
+wechatpay: /images/wechatpay.png
+alipay: /images/alipay.png
 #bitcoin: /images/bitcoin.png
 
 # Related popular posts
@@ -494,12 +494,12 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: false
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
-  notify: false # mail notifier , https://github.com/xCss/Valine/wiki
-  verify: false # Verification code
-  placeholder: Just go go # comment box placeholder
+  enable: true
+  appid: snQG2BlnuDUYlMKA3QV7n02L-gzGzoHsz # your leancloud application appid
+  appkey: 74MpPI7wyUFhF7AQyckc8Uad # your leancloud application appkey
+  notify: true # mail notifier , https://github.com/xCss/Valine/wiki
+  verify: true # Verification code
+  placeholder: 不说点什么吗……没关系，反正我也不一定看到(发email呗)ε==(づ′▽`)づ # comment box placeholder
   avatar: mm # gravatar style
   guest_info: nick,mail,link # custom comment header
   pageSize: 10 # pagination size
@@ -721,7 +721,7 @@ local_search:
 # Bookmark Support
 # Dependencies: https://github.com/theme-next/theme-next-bookmark
 bookmark:
-  enable: true
+  enable: false
   # if auto
   #   - save the reading position when closing the page
   #   - or clicking the bookmark-icon

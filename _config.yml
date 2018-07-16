@@ -177,7 +177,7 @@ jsonContent:
     tags: true
 
 
-theme: fexo
+theme: next-v6
 
 ##file search
 search:
