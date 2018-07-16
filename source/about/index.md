@@ -1,6 +1,6 @@
 ---
-title: 我
+title: 关于
 layout: about
-comments: false
+comments: true
 ---
 
