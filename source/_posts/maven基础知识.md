@@ -34,8 +34,8 @@ date: 2018-07-22 11:42:00
 
 
 3. 镜像仓库：配置远程仓库的镜像，所有针对原仓库的访问将转到镜像仓库，原仓库的url设置无效。
-![maven-model-builde](maven基础知识/maven-model-builder.png)
-![maven-pom.4.0.0.xm](maven基础知识/maven-pom.4.0.0.xml.png)
+![maven-model-builder](../../images/post/maven-model-builder.png)
+![maven-pom.4.0.0.xml](../../images/post/maven-pom.4.0.0.xml.png)
 
 
 * conf/settings.xml中配置镜像仓库，镜像可以有多个。
@@ -44,7 +44,7 @@ date: 2018-07-22 11:42:00
 
 > 我配置了一个阿里云的mirror，mirrorOf配置的是central，则id是central的仓库将会转到阿里云的镜像下载构件，原仓库的url设置将失效。
 
-![maven-settings](maven基础知识/maven-settings.png)
+![maven-settings](../../images/post/maven-settings.png)
 
 * mirrorOf的值设置
 
