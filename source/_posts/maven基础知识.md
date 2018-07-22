@@ -16,6 +16,8 @@ date: 2018-07-22 11:42:00
 4. 测试：mvn test
 5. 删除target目录：mvn clean
 6. 安装jar包到本地仓库：mvn install
+<!--more-->
+
 7. 自动建立目录结构的两种方式：
 
 * mvn archetype:generate 按指示输入信息
@@ -32,17 +34,17 @@ date: 2018-07-22 11:42:00
 
 
 3. 镜像仓库：配置远程仓库的镜像，所有针对原仓库的访问将转到镜像仓库，原仓库的url设置无效。
-![maven-model-builde](media/maven-model-builder.png)
-![maven-pom.4.0.0.xm](media/maven-pom.4.0.0.xml.png)
+![maven-model-builde](maven基础知识/maven-model-builder.png)
+![maven-pom.4.0.0.xm](maven基础知识/maven-pom.4.0.0.xml.png)
 
 
-* conf/settings.xml中配置镜像仓库。
+* conf/settings.xml中配置镜像仓库，镜像可以有多个。
 * mirror的mirrorOf不能和任何一个mirror的id相同。
 * mirrorOf配置的是该镜像所匹配的远程仓库(id)。拦截对应的远程仓库，使所有针对原仓库的访问将转到镜像仓库。
 
 > 我配置了一个阿里云的mirror，mirrorOf配置的是central，则id是central的仓库将会转到阿里云的镜像下载构件，原仓库的url设置将失效。
 
-![maven-settings](media/maven-settings.png)
+![maven-settings](maven基础知识/maven-settings.png)
 
 * mirrorOf的值设置
 
