@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>杨远明的时光小屋</title>
+  
+  <subtitle>时光偷走了记忆，我试着留下痕迹</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yangyuanming.com/"/>
+  <updated>2018-07-22T15:37:55.468Z</updated>
+  <id>http://yangyuanming.com/</id>
+  
+  <author>
+    <name>杨远明</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>maven基础知识</title>
+    <link href="http://yangyuanming.com/post/fcecdefc.html"/>
+    <id>http://yangyuanming.com/post/fcecdefc.html</id>
+    <published>2018-07-22T11:42:00.000Z</published>
+    <updated>2018-07-22T15:37:55.468Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="maven常用构建命令"><a href="#maven常用构建命令" class="headerlink" title="maven常用构建命令"></a>maven常用构建命令</h2><ol><li>查看maven版本：mvn -v</li><li>编译：mvn compile</li><li>打包：mvn package</li><li>测试：mvn test</li><li>删除target目录：mvn clean</li><li><p>安装jar包到本地仓库：mvn install</p><a id="more"></a></li><li><p>自动建立目录结构的两种方式：</p></li></ol><ul><li>mvn archetype:generate 按指示输入信息</li><li>mvn archetype:generate<br>-DgroupId=网址+项目名<br>-DartifactId=项目名-模块名<br>-Dversion=版本号<br>-Dpackage=代码包名</li></ul><h2 id="构件、仓库、镜像仓库"><a href="#构件、仓库、镜像仓库" class="headerlink" title="构件、仓库、镜像仓库"></a>构件、仓库、镜像仓库</h2><ol><li>构件：pom.xml配置文件中的dependency，包含构件坐标等信息。</li><li>仓库(repository)：本地仓库和远程仓库。先去本地仓库查询构件，如果没有就去远程仓库下载。<blockquote><p>maven提供了一个默认的全球中央仓库，在lib目录下jar包”maven-model-builder”中的pom-4.0.0.xml中配置了该仓库，所有项目的pom.xml都会继承该xml,默认就使用了该全球中央仓库</p></blockquote></li></ol><p><div align="center"><img src="https://res.yangyuanming.com/images/post/maven-model-builder.png" alt="maven-model-builder-w500"></div></p><p><div align="center"><img src="https://res.yangyuanming.com/images/post/maven-pom.4.0.0.xml.png" alt="maven-pom.4.0.0.xml-w500"></div></p><ol start="3"><li>镜像仓库：配置远程仓库的镜像，所有针对原仓库的访问将转到镜像仓库，原仓库的url设置无效。</li></ol><ul><li><p>conf/settings.xml中配置镜像仓库，镜像可以有多个。<br><div align="center"><img src="https://res.yangyuanming.com/images/post/maven-settings.png" alt="maven-settings-w500"></div></p></li><li><p>mirror的mirrorOf不能和任何一个mirror的id相同。</p></li><li>mirrorOf配置的是该镜像所匹配的远程仓库(id)。拦截对应的远程仓库，使所有针对原仓库的访问将转到镜像仓库。</li><li>mirrorOf可以配置多个值，用逗号隔开</li></ul><blockquote><p>我配置了一个阿里云的mirror，mirrorOf配置的是central，则id是central的仓库将会转到阿里云的镜像下载构件，原仓库的url设置将失效。</p></blockquote><ul><li>mirrorOf的值设置</li></ul><blockquote><p><strong>rep1</strong>:代表这个镜像仅仅针对rep1这个库</p></blockquote><blockquote><p><strong>*</strong>:代表匹配所有的库</p></blockquote><blockquote><p><strong>*,!rep1</strong>:匹配所有的库，除了rep1 </p></blockquote><blockquote><p><strong>external:*</strong>:代表匹配任意不在localhost上的仓库，或不是基于文件的仓库。这个主要是看repository中的url判断的。</p></blockquote><ol start="4"><li>更改仓库位置</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;maven常用构建命令&quot;&gt;&lt;a href=&quot;#maven常用构建命令&quot; class=&quot;headerlink&quot; title=&quot;maven常用构建命令&quot;&gt;&lt;/a&gt;maven常用构建命令&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;查看maven版本：mvn -v&lt;/li&gt;
+&lt;li&gt;编译：mvn compile&lt;/li&gt;
+&lt;li&gt;打包：mvn package&lt;/li&gt;
+&lt;li&gt;测试：mvn test&lt;/li&gt;
+&lt;li&gt;删除target目录：mvn clean&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装jar包到本地仓库：mvn install&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具学习" scheme="http://yangyuanming.com/categories/%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="maven" scheme="http://yangyuanming.com/tags/maven/"/>
+    
+      <category term="maven基础知识" scheme="http://yangyuanming.com/tags/maven%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+</feed>
