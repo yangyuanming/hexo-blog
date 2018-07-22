@@ -7,7 +7,6 @@ tags:
   - maven基础知识
 categories:
   - 工具学习
-abbrlink: fcecdefc
 date: 2018-07-22 11:42:00
 ---
 ## maven常用构建命令
@@ -34,13 +33,13 @@ date: 2018-07-22 11:42:00
 > maven提供了一个默认的全球中央仓库，在lib目录下jar包"maven-model-builder"中的pom-4.0.0.xml中配置了该仓库，所有项目的pom.xml都会继承该xml,默认就使用了该全球中央仓库
 
 
-![maven-model-builder](/images/post/maven-model-builder.png)
-![maven-pom.4.0.0.xml](/images/post/maven-pom.4.0.0.xml.png)
+![maven-model-builder](https://res.yangyuanming.com/images/post/maven-model-builder.png)
+![maven-pom.4.0.0.xml](https://res.yangyuanming.com/images/post/maven-pom.4.0.0.xml.png)
 
 3. 镜像仓库：配置远程仓库的镜像，所有针对原仓库的访问将转到镜像仓库，原仓库的url设置无效。
 
 * conf/settings.xml中配置镜像仓库，镜像可以有多个。
-![maven-settings](/images/post/maven-settings.png)
+![maven-settings](https://res.yangyuanming.com/images/post/maven-settings.png)
 
 * mirror的mirrorOf不能和任何一个mirror的id相同。
 * mirrorOf配置的是该镜像所匹配的远程仓库(id)。拦截对应的远程仓库，使所有针对原仓库的访问将转到镜像仓库。
