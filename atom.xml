@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>杨远明的时光小屋</title>
+  
+  <subtitle>时光偷走了记忆，我试着留下痕迹</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yangyuanming.com/"/>
+  <updated>2018-07-23T13:50:11.076Z</updated>
+  <id>http://yangyuanming.com/</id>
+  
+  <author>
+    <name>杨远明</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>maven核心知识</title>
+    <link href="http://yangyuanming.com/post/fcecdefc.html"/>
+    <id>http://yangyuanming.com/post/fcecdefc.html</id>
+    <published>2018-07-22T11:42:00.000Z</published>
+    <updated>2018-07-23T13:50:11.076Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="maven常用构建命令"><a href="#maven常用构建命令" class="headerlink" title="maven常用构建命令"></a>maven常用构建命令</h2><ol><li>查看maven版本：mvn -v</li><li>编译：mvn compile</li><li>打包：mvn package</li><li>测试：mvn test</li><li>删除target目录：mvn clean</li><li><p>安装jar包到本地仓库：mvn install</p><a id="more"></a></li><li><p>自动建立目录结构的两种方式：</p></li></ol><ul><li>mvn archetype:generate 按指示输入信息</li><li>mvn archetype:generate<br>-DgroupId=网址+项目名<br>-DartifactId=项目名-模块名<br>-Dversion=版本号<br>-Dpackage=代码包名</li></ul><hr><h2 id="构件、仓库、镜像仓库"><a href="#构件、仓库、镜像仓库" class="headerlink" title="构件、仓库、镜像仓库"></a>构件、仓库、镜像仓库</h2><h5 id="1-构件"><a href="#1-构件" class="headerlink" title="1. 构件"></a>1. 构件</h5><p>pom.xml配置文件中的dependency，包含构件坐标等信息。</p><h5 id="2-仓库-repository"><a href="#2-仓库-repository" class="headerlink" title="2. 仓库(repository)"></a>2. 仓库(repository)</h5><p>分为本地仓库和远程仓库。先去本地仓库查询构件，如果没有就去远程仓库下载。</p><blockquote><p>maven提供了一个默认的全球中央仓库，在lib目录下jar包”maven-model-builder”中的pom-4.0.0.xml中配置了该仓库，所有项目的pom.xml都会继承该xml,默认就使用了该全球中央仓库</p></blockquote><p><img src="https://res.yangyuanming.com/images/post/maven-model-builder.png" alt="maven-model-builder"></p><p><img src="https://res.yangyuanming.com/images/post/maven-pom.4.0.0.xml.png" alt="maven-pom.4.0.0.xml"></p><h5 id="3-镜像仓库"><a href="#3-镜像仓库" class="headerlink" title="3. 镜像仓库"></a>3. 镜像仓库</h5><p>配置远程仓库的镜像，所有针对原仓库的访问将转到镜像仓库，原仓库的url设置无效。</p><ul><li>conf/settings.xml中配置镜像仓库，镜像可以有多个。</li><li>mirror的mirrorOf不能和任何一个mirror的id相同。</li><li>mirrorOf配置的是该镜像所匹配的远程仓库(id)。拦截对应的远程仓库，使所有针对原仓库的访问将转到镜像仓库。</li><li>mirrorOf可以配置多个值，用逗号隔开</li></ul><blockquote><p>我配置了一个阿里云的mirror，mirrorOf配置的是central，则id是central的仓库将会转到阿里云的镜像下载构件，原仓库的url设置将失效。</p></blockquote><p><img src="https://res.yangyuanming.com/images/post/maven-settings.png" alt="maven-settings"></p><ul><li><p>mirrorOf的值设置</p><ul><li><p><strong>rep1</strong>:代表这个镜像仅仅针对rep1这个库。如果存在多个镜像的mirrorOf值都包含rep1，则按顺序匹配。</p></li><li><p><strong>*</strong>:代表匹配所有的库。注意maven会优先匹配与仓库id完全的镜像。例如id为rep1的仓库会优先匹配mirrorOf也为rep1的镜像，如果没有才会匹配mirrorOf为*的镜像。</p></li><li><p><strong>*,!rep1</strong>:匹配所有的库，除了rep1 </p></li><li><p><strong>external:*</strong>:代表匹配任意不在localhost上的仓库，或不是基于文件的仓库。这个主要是看repository中的url判断的。</p></li></ul></li></ul><h5 id="4-更改仓库位置"><a href="#4-更改仓库位置" class="headerlink" title="4. 更改仓库位置"></a>4. 更改仓库位置</h5><blockquote><p>maven下载的构件默认放在/usernanme/.m2/repository下面，其中username代表用户目录。可以在conf/settings.xml中自定义仓库的位置。</p></blockquote><ul><li>从注释中复制localRepository标签，填入自定义目录</li><li>备份settings.xml到maven_repo文件夹。以后更新maven，不用重新配置settings.xml，复制一份回conf文件夹下即可。</li></ul><p><img src="https://res.yangyuanming.com/images/post/更改仓库位置.png" alt="更改仓库位置"></p><hr><h2 id="maven构建生命周期"><a href="#maven构建生命周期" class="headerlink" title="maven构建生命周期"></a>maven构建生命周期</h2><p>maven抽象出了3套生命周期，其具体实现是依赖于<a href="http://maven.apache.org/plugins/index.html" target="_blank" rel="noopener">maven插件</a>。每套生命周期是相互独立的，都由一组阶段(Phase)组成。每套生命周期中的阶段是有顺序的，后面阶段依赖于前面的阶段，执行后面阶段会自动执行之前的阶段，但不会触发不同生命周期的阶段。</p><blockquote><p><strong>下面是各生命周期及其包含的阶段。</strong></p></blockquote><h5 id="1-Clean-Lifecycle"><a href="#1-Clean-Lifecycle" class="headerlink" title="1. Clean Lifecycle"></a>1. Clean Lifecycle</h5><p>清理项目，在进行真正的构建之前进行一些清理工作。</p><ul><li><p>pre-clean     执行clean前需要完成的工作  </p></li><li><p>clean     clean上一次构建生成的所有文件  </p></li><li><p>post-clean    执行clean后需要立刻完成的工作  </p></li></ul><blockquote><p>这里的clean就是指的mvn clean。在一套生命周期内，运行某个阶段会自动按序运行之前阶段，mvn clean=mvn pre-clean clean</p></blockquote><h5 id="2-Default-Lifecycle"><a href="#2-Default-Lifecycle" class="headerlink" title="2. Default Lifecycle"></a>2. Default Lifecycle</h5><p>构建的核心部分，编译，测试，打包，部署等等。</p><ul><li>validate      验证项目是否正确，并且所有必要的信息可用于完成构建过程</li><li>initialize    建立初始化状态，例如设置属性</li><li>generate-sources     </li><li>process-sources      </li><li>generate-resources</li><li>process-resources     复制并处理资源文件，至目标目录，准备打包。</li><li>compile     编译项目的源代码。</li><li>process-classes</li><li>generate-test-sources </li><li>process-test-sources </li><li>generate-test-resources</li><li>process-test-resources     复制并处理资源文件，至目标测试目录。</li><li>test-compile     编译测试源代码。</li><li>process-test-classes</li><li>test     使用合适的单元测试框架运行测试。这些测试代码不会被打包或部署。</li><li>prepare-package</li><li>package     提取编译后的代码，并在其分发格式打包，如JAR，WAR或EAR文件</li><li>pre-integration-test     完成执行集成测试之前所需操作。例如，设置所需的环境</li><li>integration-test</li><li>post-integration-test     完成集成测试已全部执行后所需操作。例如，清理环境</li><li>verify        运行任何检查，验证包是有效的，符合质量审核规定</li><li>install     将包安装至本地仓库，以让其它项目依赖。</li><li>deploy     将最终的包复制到远程的仓库，以让其它开发人员与项目共享    </li></ul><h5 id="3-Site-Lifecycle"><a href="#3-Site-Lifecycle" class="headerlink" title="3. Site Lifecycle"></a>3. Site Lifecycle</h5><p>生成项目报告，站点，发布站点。</p><ul><li>pre-site     执行一些需要在生成站点文档(html)之前完成的工作</li><li>site     生成项目信息的站点文档</li><li>post-site     执行一些需要在生成站点文档之后完成的工作，并且为部署做准备</li><li>site-deploy     将生成的站点文档部署到特定的服务器上</li></ul><hr><h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料:"></a>参考资料:</h5><blockquote><p><a href="http://blog.sina.com.cn/s/blog_e01142dc0102wup3.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_e01142dc0102wup3.html</a></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;maven常用构建命令&quot;&gt;&lt;a href=&quot;#maven常用构建命令&quot; class=&quot;headerlink&quot; title=&quot;maven常用构建命令&quot;&gt;&lt;/a&gt;maven常用构建命令&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;查看maven版本：mvn -v&lt;/li&gt;
+&lt;li&gt;编译：mvn compile&lt;/li&gt;
+&lt;li&gt;打包：mvn package&lt;/li&gt;
+&lt;li&gt;测试：mvn test&lt;/li&gt;
+&lt;li&gt;删除target目录：mvn clean&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装jar包到本地仓库：mvn install&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具学习" scheme="http://yangyuanming.com/categories/%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="maven" scheme="http://yangyuanming.com/tags/maven/"/>
+    
+      <category term="maven核心知识" scheme="http://yangyuanming.com/tags/maven%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+</feed>
