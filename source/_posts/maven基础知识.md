@@ -31,18 +31,19 @@ date: 2018-07-22 11:42:00
 ## 构件、仓库、镜像仓库
 1. 构件：pom.xml配置文件中的dependency，包含构件坐标等信息。
 2. 仓库(repository)：本地仓库和远程仓库。先去本地仓库查询构件，如果没有就去远程仓库下载。
+
 > maven提供了一个默认的全球中央仓库，在lib目录下jar包"maven-model-builder"中的pom-4.0.0.xml中配置了该仓库，所有项目的pom.xml都会继承该xml,默认就使用了该全球中央仓库
 
-<div align=center >![maven-model-builder-w340](https://res.yangyuanming.com/images/post/maven-model-builder.png)
+![maven-model-builder](https://res.yangyuanming.com/images/post/maven-model-builder.png)
 
-<div align=center>![maven-pom.4.0.0.xml-w340](https://res.yangyuanming.com/images/post/maven-pom.4.0.0.xml.png)
+![maven-pom.4.0.0.xml](https://res.yangyuanming.com/images/post/maven-pom.4.0.0.xml.png)
 
 
 3. 镜像仓库：配置远程仓库的镜像，所有针对原仓库的访问将转到镜像仓库，原仓库的url设置无效。
 
 * conf/settings.xml中配置镜像仓库，镜像可以有多个。
 
-<div align=center>![maven-settings-w340](https://res.yangyuanming.com/images/post/maven-settings.png)
+![maven-settings](https://res.yangyuanming.com/images/post/maven-settings.png)
 
 * mirror的mirrorOf不能和任何一个mirror的id相同。
 * mirrorOf配置的是该镜像所匹配的远程仓库(id)。拦截对应的远程仓库，使所有针对原仓库的访问将转到镜像仓库。
@@ -60,6 +61,13 @@ date: 2018-07-22 11:42:00
 > **external:\***:代表匹配任意不在localhost上的仓库，或不是基于文件的仓库。这个主要是看repository中的url判断的。
 
 4. 更改仓库位置
+
+> maven下载的构件默认放在/usernanme/.m2/repository下面，其中username代表用户目录。可以在conf/settings.xml中自定义仓库的位置。
+
+* 从注释中复制localRepository标签，填入自定义目录
+* 备份settings.xml到maven_repo文件夹。以后更新maven，不用重新配置settings.xml，复制一份回conf文件夹下即可。
+
+![更改仓库位置](https://res.yangyuanming.com/images/post/更改仓库位置.png)
 
 
 
