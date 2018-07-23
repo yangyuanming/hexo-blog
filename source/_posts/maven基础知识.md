@@ -31,11 +31,12 @@ date: 2018-07-22 11:42:00
 -------
 
 ## 构件、仓库、镜像仓库
-##### 1. 构件
+
+### 构件
 
 pom.xml配置文件中的dependency，包含构件坐标等信息。
     
-##### 2. 仓库(repository)
+### 仓库(repository)
 分为本地仓库和远程仓库。先去本地仓库查询构件，如果没有就去远程仓库下载。
 
 
@@ -47,7 +48,7 @@ pom.xml配置文件中的dependency，包含构件坐标等信息。
 ![maven-pom.4.0.0.xml](https://res.yangyuanming.com/images/post/maven-pom.4.0.0.xml.png)
 
 
-##### 3. 镜像仓库
+### 镜像仓库
 配置远程仓库的镜像，所有针对原仓库的访问将转到镜像仓库，原仓库的url设置无效。
 
 
@@ -70,7 +71,7 @@ pom.xml配置文件中的dependency，包含构件坐标等信息。
 
     * **external:\***:代表匹配任意不在localhost上的仓库，或不是基于文件的仓库。这个主要是看repository中的url判断的。
 
-##### 4. 更改仓库位置
+### 更改仓库位置
 
 > maven下载的构件默认放在/usernanme/.m2/repository下面，其中username代表用户目录。可以在conf/settings.xml中自定义仓库的位置。
 
@@ -82,11 +83,12 @@ pom.xml配置文件中的dependency，包含构件坐标等信息。
 -------
 
 ## maven构建生命周期
+
 maven抽象出了3套生命周期，其具体实现是依赖于[maven插件](http://maven.apache.org/plugins/index.html)。每套生命周期是相互独立的，都由一组阶段(Phase)组成。每套生命周期中的阶段是有顺序的，后面阶段依赖于前面的阶段，执行后面阶段会自动执行之前的阶段，但不会触发不同生命周期的阶段。
 
-> **下面是各生命周期及其包含的阶段。**
+**下面是三个生命周期及其包含的阶段。**
 
-##### 1. Clean Lifecycle 
+### Clean Lifecycle 
 清理项目，在进行真正的构建之前进行一些清理工作。
 
 *  pre-clean     执行clean前需要完成的工作  
@@ -98,7 +100,7 @@ maven抽象出了3套生命周期，其具体实现是依赖于[maven插件](htt
     
 >这里的clean就是指的mvn clean。在一套生命周期内，运行某个阶段会自动按序运行之前阶段，mvn clean=mvn pre-clean clean
 
-##### 2. Default Lifecycle
+### Default Lifecycle
 构建的核心部分，编译，测试，打包，部署等等。
 
 * validate      验证项目是否正确，并且所有必要的信息可用于完成构建过程
@@ -125,7 +127,7 @@ maven抽象出了3套生命周期，其具体实现是依赖于[maven插件](htt
 * install     将包安装至本地仓库，以让其它项目依赖。
 * deploy     将最终的包复制到远程的仓库，以让其它开发人员与项目共享    
     
-##### 3. Site Lifecycle   
+### Site Lifecycle   
 生成项目报告，站点，发布站点。
 
 * pre-site     执行一些需要在生成站点文档(html)之前完成的工作
