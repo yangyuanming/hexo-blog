@@ -1,5 +1,5 @@
 ---
-title: maven常用构建命令&库
+title: maven常用构建命令及库的概念
 toc: true
 comment: true
 tags:
