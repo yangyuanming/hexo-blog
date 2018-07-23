@@ -18,7 +18,6 @@ date: 2018-07-22 11:42:00
 5. 删除target目录：mvn clean
 6. 安装jar包到本地仓库：mvn install
 <!--more-->
-
 7. 自动建立目录结构的两种方式：
 
 * mvn archetype:generate 按指示输入信息
@@ -138,7 +137,7 @@ maven抽象出了3套生命周期，其具体实现是依赖于[maven插件](htt
     
 -------
 
-##### 参考资料:
+## 参考资料
 
 >http://blog.sina.com.cn/s/blog_e01142dc0102wup3.html
 

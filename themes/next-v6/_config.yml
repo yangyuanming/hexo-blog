@@ -100,7 +100,7 @@ footer:
 canonical: true
 
 # Change headers hierarchy on site-subtitle (will be main site description) and on all post/pages titles for better SEO-optimization.
-seo: false
+seo: true
 
 # If true, will add site-subtitle to index page, added in main hexo config.
 # subtitle: Subtitle
@@ -305,8 +305,8 @@ alipay: /images/alipay.png
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
-  enable: false
-  title: # custom header, leave empty to use the default one
+  enable: true
+  title: 相关推荐 # custom header, leave empty to use the default one
   display_in_home: false
   params:
     maxCount: 5
