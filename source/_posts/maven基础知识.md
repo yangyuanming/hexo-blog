@@ -1,10 +1,10 @@
 ---
-title: maven基础知识
+title: maven核心知识
 toc: true
 comment: true
 tags:
   - maven
-  - maven基础知识
+  - maven核心知识
 categories:
   - 工具学习
 abbrlink: fcecdefc
