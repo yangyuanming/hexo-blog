@@ -10,7 +10,6 @@ categories:
 abbrlink: fcecdefc
 date: 2018-07-22 11:42:00
 ---
-[TOC]
 
 ## maven常用构建命令
 1. 查看maven版本：mvn -v

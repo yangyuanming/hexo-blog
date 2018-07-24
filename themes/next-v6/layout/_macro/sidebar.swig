@@ -156,10 +156,8 @@
           {% include custom_sidebar %}
         </div>
         <div id="musicPlayer">
-    	  <audio src="/res/music/Journey.mp3" width=280 height=86
-    	   controls loop
-    	  />
-		</div>
+    	  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=86 src="//music.163.com/outchain/player?type=2&id=16846088&auto=0&height=66"></iframe>
+		  </div>
 
 
       </section>
