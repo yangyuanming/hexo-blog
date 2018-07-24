@@ -1,7 +1,4 @@
 ---
-abbrlink: '0'
----
----
 title: maven常用构建命令及库的概念
 comment: true
 tags:
@@ -12,7 +9,7 @@ categories:
   - maven
 abbrlink: fcecdefc
 date: 2018-07-22 11:42:00
-    ---
+---
 [TOC]
 
 ## maven常用构建命令
