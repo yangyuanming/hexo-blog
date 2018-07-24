@@ -156,7 +156,7 @@
           {% include custom_sidebar %}
         </div>
         <div id="musicPlayer">
-    	  <audio src="/res/music/Capo Productions - Journey.mp3" width=280 height=86
+    	  <audio src="/res/music/Journey.mp3" width=280 height=86
     	   controls loop
     	  />
 		</div>

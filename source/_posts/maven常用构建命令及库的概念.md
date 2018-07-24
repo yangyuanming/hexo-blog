@@ -1,4 +1,7 @@
 ---
+abbrlink: '0'
+---
+---
 title: maven常用构建命令及库的概念
 comment: true
 tags:
