@@ -7,7 +7,6 @@ tags:
 categories:
   - 工具学习
   - maven
-abbrlink: b37b3bbf
 date: 2018-07-24 07:30:00
 ---
 
@@ -28,6 +27,8 @@ maven抽象出了3套生命周期，其具体实现是依赖于[maven插件](htt
  
     
 >这里的clean就是指的mvn clean。在一套生命周期内，运行某个阶段会自动按序运行之前阶段，mvn clean=mvn pre-clean clean
+
+<!--more-->
 
 ### Default Lifecycle
 构建的核心部分，编译，测试，打包，部署等等。

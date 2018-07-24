@@ -9,7 +9,7 @@ categories:
   - maven
 abbrlink: fcecdefc
 date: 2018-07-22 11:42:00
----
+    ---
 [TOC]
 
 ## maven常用构建命令
@@ -92,9 +92,9 @@ pom.xml配置文件中的dependency，包含构件坐标等信息。
 
     * **external:\***:代表匹配任意不在localhost上的仓库，或不是基于文件的仓库。这个主要是看repository中的url判断的。
 
-### 更改仓库位置
+### 更改本地仓库位置
 
-> maven下载的构件默认放在usernanme/.m2/repository下面，其中username代表用户目录。可以在conf/settings.xml中自定义仓库的位置。
+> maven下载的构件默认放在~/.m2/repository下面，其中~代表用户目录。可以在conf/settings.xml中自定义本地仓库的位置。
 
 * 从文档注释中复制localRepository标签，粘贴，填入自定义目录
 
@@ -102,7 +102,7 @@ pom.xml配置文件中的dependency，包含构件坐标等信息。
 <localRepository>/Users/yuanming/maven_repo</localRepository>
 ```
 
-* 备份settings.xml到maven_repo文件夹(自定义仓库文件夹)。以后更新maven，不用重新配置settings.xml，复制一份回conf文件夹下即可。
+* 备份settings.xml到maven_repo文件夹(自定义仓库文件夹)，在IDE中设置settings file的路径为备份的settings.xml的路径。以后更新maven，不用重新配置settings.xml。
 
 
 
