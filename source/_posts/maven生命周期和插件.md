@@ -10,6 +10,7 @@ tags:
 categories:
   - 工具学习
   - maven
+abbrlink: b37b3bbf
 date: 2018-07-24 07:30:00
 ---
 
@@ -163,7 +164,7 @@ mvn install -Dmaven.test.skip=true
 
 用户可以在声明插件的时候，对此插件进行一个全局配置。也就是说，所有该基于该插件目标的任务，都会使用这些配置。例如我们通常会需要配置maven-compiler-plugin告诉它配置Java1.5版本的源文件，生成与JVM1.5兼容的字节码文件，代码如下：
 
-```
+```xml
 <build>
     <plugins>
         <plugin>
@@ -186,7 +187,7 @@ mvn install -Dmaven.test.skip=true
 ### POM中插件任务配置
 除了为插件配置全局的参数，用户还可以为某个插件任务配置特定的参数。以maven-antrun-plugin为例，它有一个目标run,可以用来在Maven中调用Ant任务。用户将maven-antrun-plugin:run绑定到多个生命周期阶段上，再加以不同的配置，就可以让Maven在不同的生命周期执行不同的任务，代码如下:
 
-```
+```xml
 <build>
     <plugins>
         <groupId>org.apache.maven.plugins<groupId>
@@ -287,13 +288,15 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:tree
 ## 插件解析机制
 
 ### 仓库元数据
-* 插件元数据
+#### 插件元数据
 
 **主要用于解释插件版本**
 
-> 在远程仓库存放的位置结构:http://repo1.maven.org/maven2/groupId/artifactId/maven-metadata.xml  
+> 在远程仓库存放的位置结构:  
+> http://repo1.maven.org/maven2/groupId/artifactId/maven-metadata.xml  
 
-这里的groupId指的就是构件的groupId，artifactId指的是构件的artifactId，例如插件maven-compiler-plugin的元数据链接:http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/maven-metadata.xml  
+这里的groupId指的就是构件的groupId，artifactId指的是构件的artifactId，例如插件maven-compiler-plugin的元数据链接:  
+http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/maven-metadata.xml  
 内容如下：
 
 ```xml
@@ -332,13 +335,15 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:tree
   </versioning>
 </metadata>
 ```
-* 插件前缀元数据
+#### 插件前缀元数据
 
 **主要用于解释插件前缀**
 
-> 在远程仓库存放的位置结构:http://repo1.maven.org/maven2/groupId/maven-metadata.xml
+> 在远程仓库存放的位置结构:  
+> http://repo1.maven.org/maven2/groupId/maven-metadata.xml
 
-我们使用一般使用官方的插件就够了，官方插件默认的groupId为org.apache.maven.plugins，对应的链接为http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-metadata.xml  
+我们使用一般使用官方的插件就够了，官方插件默认的groupId为org.apache.maven.plugins，对应的链接为  
+http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-metadata.xml  
 下面是前缀元数据xml文件截取的部分内容
 
 
@@ -393,7 +398,7 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:tree
 ### 插件的默认groupId
 在POM配置中配置插件的时候，如果该插件是Maven的官方插件（即如果其groupId为org.apache.maven.plugins），就可以省略groupId配置，见代码清单：
 
-```
+```xml
 <build>
     <plugins>
         <plugin>
@@ -493,6 +498,8 @@ mvn命令行支持使用插件前缀来简化插件的调用，现在解释Maven
   </plugins>
 </metadata>
 ```
+
+-------
 
 ## 参考资料
 

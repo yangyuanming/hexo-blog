@@ -9,6 +9,6 @@
   </li>
   <li class="post-copyright-license">
     <strong>{{ __('post.copyright.license_title') + __('symbol.colon') }} </strong>{#
-  #}{{ __('post.copyright.license_content', theme.post_copyright.license) }}{#
+  #}{{ __('post.copyright.license_content', theme.post_copyright.license,theme.post_copyright.connect) }}{#
 #}</li>
 </ul>

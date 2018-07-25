@@ -9,6 +9,7 @@ tags:
 categories:
   - 工具学习
   - maven
+abbrlink: 5ebf0f9d
 date: 2018-07-22 11:42:00
 ---
 
@@ -113,7 +114,6 @@ date: 2018-07-22 11:42:00
 </mirror>
 ```
 
-
 * mirrorOf的值设置
 
     *  **rep1**:代表这个镜像仅仅针对rep1这个库。如果存在多个镜像的mirrorOf值都包含rep1，则按顺序匹配。
@@ -134,6 +134,8 @@ date: 2018-07-22 11:42:00
 ```
 
 * 备份settings.xml到maven_repo文件夹(自定义仓库文件夹)，在IDE中设置settings file的路径为备份的settings.xml的路径。以后更新maven，不用重新配置settings.xml。
+
+-------
 
 ## 参考资料
 
