@@ -2,10 +2,10 @@
 title: maven常用构建命令、构件和库
 comment: true
 tags:
+  - maven
   - maven构建命令
   - maven构件
   - maven库
-  - maven
 categories:
   - 工具学习
   - maven

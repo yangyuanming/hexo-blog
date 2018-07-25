@@ -2,11 +2,11 @@
 title: maven生命周期和插件
 comment: true
 tags:
+  - maven
   - maven生命周期
   - maven插件目标
   - maven插件配置
   - maven插件解析
-  - maven
 categories:
   - 工具学习
   - maven
@@ -181,6 +181,8 @@ mvn install -Dmaven.test.skip=true
  
 这样，不管绑定到compile阶段的maven-compiler-plugin:compile任务，还是绑定到test-compiler阶段的maven-compiler-plugin:testCompiler任务，这都能够使用该配置，基于Java1.5版本进行编译。
 
+
+
 ### POM中插件任务配置
 除了为插件配置全局的参数，用户还可以为某个插件任务配置特定的参数。以maven-antrun-plugin为例，它有一个目标run,可以用来在Maven中调用Ant任务。用户将maven-antrun-plugin:run绑定到多个生命周期阶段上，再加以不同的配置，就可以让Maven在不同的生命周期执行不同的任务，代码如下:
 
@@ -220,7 +222,12 @@ mvn install -Dmaven.test.skip=true
 </build>
 ```
 上述代码片段中，首先，maven-antrun-plugin:run与validate绑定，从而构成一个id为ant-validate的任务。插件全局配置中的configuration元素位于plugin元素下面，而这里的configuration元素则位于execution元素下，表示这是特定任务的配置，而非插件整体的配置。这个ant-validate任务配置了一个echo Ant任务，向命令行输出一段文字，表示该任务是绑定到validate阶段的。第二个任务的id为ant-verify，它绑定到了verify阶段，同样它也输出一段文字到命令行，告诉该任务绑定到了verify阶段。
+
+
+-------
+
 ## 获取插件信息
+
 仅仅理解如何配置和使用插件是不够的，当遇到一个构建任务的时候，用户还需要知道去哪里寻找合适的插件，以帮助完成任务，找到正确的插件之后，还要详细了解该插件的配置点。由于Maven的插件非常多，这其中大部分没有完善文档，因此，使用正确的插件并进行正确的配置，其实并不是一件容易的事。
 ### 在线插件信息
 基本所有的主要的Maven插件都来自Apache和Codehaus。由于Maven本身是属于Apache软件基金会的，因此他有很多的官方的插件，每天都有成千上万的Maven用户在使用这些插件，他们具有非常好的的稳定性。
@@ -273,7 +280,12 @@ mvn org.apache.maven.plugins:maven-help-plugin:2.1:describe-Dplugin=compiler
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:tree
 ```
 这两条命令就比较容易理解了，插件的groupId、artifactId、version以及goal都得以清晰描述。它们的效果与之前的两条命令基本是一样的，但是显然前面的命令更简洁，更容易记忆和使用。为了达到该目的，Maven引入了目标前缀的概念help是maven-help-plugin的目标前缀，dependency是maven-dependency-plugin的前缀，有了插件前缀，Maven就能找到对应的artifactId。不过，除了artifactId,Maven还需要得到groupId和version才能精确定位到某个插件。
+
+
+-------
+
 ## 插件解析机制
+
 ### 仓库元数据
 * 插件元数据
 
@@ -455,7 +467,9 @@ mvn命令行支持使用插件前缀来简化插件的调用，现在解释Maven
 * 其次检查归并后的元素，根据前缀(prefix)找到对应的artifactId；
 * 结合artifactId和groupId，最后获取version，这是就得到了完整的插件坐标。
 * 若org/apache/maven/plugins/maven-metadata.xml没有记录该插件前缀，则接着检查其他groupId下的元数据，如org/codehaus/mojo/maven-metadata.xml以及用户自定义的插件。若所有元数据都不包含该前缀，则报错。
-插件前缀元数据部分内容:
+
+> 插件前缀元数据部分内容:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
