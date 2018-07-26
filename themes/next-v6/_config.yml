@@ -306,7 +306,7 @@ alipay: /images/alipay.png
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
   enable: true
-  title: 推荐    # custom header, leave empty to use the default one
+  title: 推荐阅读    # custom header, leave empty to use the default one
   display_in_home: false
   params:
     maxCount: 5
