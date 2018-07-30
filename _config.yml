@@ -14,7 +14,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yangyuanming.com
+url: https://yangyuanming.com
 root: /
 #permalink: :year/:month/:day/:title/
 permalink: post/:abbrlink.html
@@ -33,7 +33,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render: 
+skip_render:
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -49,8 +49,8 @@ highlight:
   enable: true
   line_number: true
   auto_detect: false
-  tab_replace: 
-  
+  tab_replace:
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -59,7 +59,7 @@ index_generator:
   path: ''
   per_page: 10
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -88,7 +88,7 @@ Plugins:
 sitemap:
    path: sitemap.xml
 
-feed: 
+feed:
    type: atom
    path: atom.xml
    limit: 0
@@ -189,8 +189,7 @@ search:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: 
+  repo:
       github: git@github.com:yangyuanming/yangyuanming.github.io.git
       coding: git@git.coding.net:fallingleaves/fallingleaves.git
   branch: master
-  

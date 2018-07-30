@@ -23,7 +23,7 @@ maven抽象出了3套生命周期，其具体实现是依赖于[插件](https://
 ### Clean Lifecycle 
 清理项目，在进行真正的构建之前进行一些清理工作。
 
-*  pre-clean     执行clean前需要完成的工作  
+*  `pre-clean`     执行clean前需要完成的工作  
 
 *  clean     clean上一次构建生成的所有文件  
 
@@ -31,7 +31,7 @@ maven抽象出了3套生命周期，其具体实现是依赖于[插件](https://
 
  <!--more-->
     
->这里的clean就是指的mvn clean。在一套生命周期内，运行某个阶段会自动按序运行之前阶段，mvn clean=mvn pre-clean clean。
+这里的clean就是指的`mvn clean`。在一套生命周期内，运行某个阶段会自动按序运行之前阶段，`mvn clean=mvn pre-clean clean`。
 
 
 ### Default Lifecycle
@@ -139,7 +139,10 @@ maven本质是一个插件框架，maven每个生命周期的每个阶段(phase)
 ```
 
 ### 运行命令时直接指定插件目标(与生命周期无关)  
-`mvn 插件目标前缀(prefix):插件目标`  
+
+```
+mvn 插件目标前缀(prefix):插件目标 
+``` 
 各插件目标的命令在官网可以查。例如mvn archetype:generate 就表示调用maven-archetype-plugin的generate目标，这种**带冒号的调用方式与生命周期无关**。
 
 
@@ -236,17 +239,32 @@ mvn install -Dmaven.test.skip=true
 [插件列表](http://repo1.maven.org/maven2/org/apache/maven/plugins)  
 ### 使用maven-help-plugin描述插件
 除了访问在线的插件文档之外，还可以借助maven-help-plugin来获取插件的详细信息。。可以运行一下命令来获取maven-compiler-plugin2.1版本的信息：
-`mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin:2.1`
+
+```
+mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin:2.1
+```
 这里执行的是maven-help-plugins的describe目标，在参数的plugin中输入需要描述插件的groupId、artfactId和version。Maven在命令行输出maven-compiler-plugin的简要信息。
 
 在描述插件的时候，还可以省去版本信息，让Maven自动获取最新版本来进行表述。例如：
-`mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin`
+
+```
+mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin
+```
 进一步简化，可以使用插件目标前缀替换坐标。例如：
-`mvn help:describe-Dplugin=compiler`
+
+```
+mvn help:describe-Dplugin=compiler
+```
 如果仅仅想描述某个插件目标的信息，可以加上goal参数：
-`mvn help:describe-Dplugin=compiler-Dgoal=compile`
+
+```
+mvn help:describe-Dplugin=compiler-Dgoal=compile
+```
 如果想让maven-help-plugin输出更详细的信息，可以加上detail参数：
-`mvn help:describe -Dplugin=compiler-Ddetail`
+
+```
+mvn help:describe -Dplugin=compiler-Ddetail
+```
 ### 从命令行调用插件
 如果在命令行运行mvn -h来显示mvn命令帮助，可以看到如下的信息：
 
