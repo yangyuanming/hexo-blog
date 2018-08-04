@@ -1,5 +1,5 @@
 ---
-title: maven生命周期和插件
+title: maven学习篇二:生命周期和插件
 comment: true
 tags:
   - maven
@@ -25,9 +25,9 @@ maven抽象出了3套生命周期，其具体实现是依赖于[插件](https://
 
 *  `pre-clean`     执行clean前需要完成的工作  
 
-*  clean     clean上一次构建生成的所有文件  
+*  `clean`     clean上一次构建生成的所有文件  
 
-*  post-clean    执行clean后需要立刻完成的工作  
+*  `post-clean`    执行clean后需要立刻完成的工作  
 
  <!--more-->
     
@@ -37,62 +37,62 @@ maven抽象出了3套生命周期，其具体实现是依赖于[插件](https://
 ### Default Lifecycle
 **构建的核心部分**，编译，测试，打包，部署等等。
 
-* validate      验证项目是否正确，并且所有必要的信息可用于完成构建过程
+* `validate`      验证项目是否正确，并且所有必要的信息可用于完成构建过程
 
-* initialize    建立初始化状态，例如设置属性
+* `initialize`    建立初始化状态，例如设置属性
 
-* generate-sources
+* `generate-sources`
   
-* process-sources 
+* `process-sources` 
   
-* generate-resources
+* `generate-resources`
 
-* process-resources     复制并处理资源文件，至目标目录，准备打包。
+* `process-resources`     复制并处理资源文件，至目标目录，准备打包。
 
-* compile     编译项目的源代码。
+* `compile`     编译项目的源代码。
 
-* process-classes
+* `process-classes`
 
-* generate-test-sources
+* `generate-test-sources`
 
-* process-test-sources 
+* `process-test-sources` 
 
-* generate-test-resources
+* `generate-test-resources`
 
-* process-test-resources     复制并处理资源文件，至目标测试目录。
+* `process-test-resources`     复制并处理资源文件，至目标测试目录。
 
-* test-compile     编译测试源代码。
+* `test-compile`     编译测试源代码。
 
-* process-test-classes
+* `process-test-classes`
 
-* test     使用合适的单元测试框架运行测试。这些测试代码不会被打包或部署。
+* `test`     使用合适的单元测试框架运行测试。这些测试代码不会被打包或部署。
 
-* prepare-package
+* `prepare-package`
 
-* package     提取编译后的代码，并在其分发格式打包，如JAR，WAR或EAR文件
+* `package`     提取编译后的代码，并在其分发格式打包，如JAR，WAR或EAR文件
 
-* pre-integration-test     完成执行集成测试之前所需操作。例如，设置所需的环境
+* `pre-integration-test`     完成执行集成测试之前所需操作。例如，设置所需的环境
 
-* integration-test
+* `integration-test`
 
-* post-integration-test     完成集成测试已全部执行后所需操作。例如，清理环境
+* `post-integration-test`     完成集成测试已全部执行后所需操作。例如，清理环境
 
-* verify        运行任何检查，验证包是有效的，符合质量审核规定
+* `verify`        运行任何检查，验证包是有效的，符合质量审核规定
 
-* install     将包安装至本地仓库，以让其它项目依赖。
+* `install`     将包安装至本地仓库，以让其它项目依赖。
 
-* deploy     将最终的包复制到远程的仓库，以让其它开发人员与项目共享    
+* `deploy`     将最终的包复制到远程的仓库，以让其它开发人员与项目共享    
   
 ### Site Lifecycle   
 生成项目报告，站点，发布站点。
 
-* pre-site     执行一些需要在生成站点文档(html)之前完成的工作
+* `pre-site`     执行一些需要在生成站点文档(html)之前完成的工作
 
-* site     生成项目信息的站点文档
+* `site`     生成项目信息的站点文档
 
-* post-site     执行一些需要在生成站点文档之后完成的工作，并且为部署做准备
+* `post-site `    执行一些需要在生成站点文档之后完成的工作，并且为部署做准备
 
-* site-deploy     将生成的站点文档部署到特定的服务器上
+* `site-deploy`     将生成的站点文档部署到特定的服务器上
 
 
 -------
@@ -110,8 +110,8 @@ maven本质是一个插件框架，maven每个生命周期的每个阶段(phase)
 ### 插件目标绑定maven生命周期阶段  
    这分为内置绑定和自定义绑定。
      
-* 内置绑定。maven的生命周期的阶段已经默认和一些插件的目标进行了绑定。例如Maven默认将maven-compiler-plugin的compile目标与compile生命周期阶段绑定，因此命令mvn compile实际上是先定位到compile这一生命周期阶段，然后再根据绑定关系调用maven-compiler-plugin的compile目标。  
-*    自定义绑定。在pom.xml中进行配置，我们可以根据需要将任何插件目标绑定到任何生命周期的任何阶段。如：将maven-source-plugin的jar-no-fork目标绑定到default生命周期的package阶段，这样，以后在执行mvn package命令打包项目时，在package**阶段之后**会执行源代码打包。  
+* 内置绑定。maven的生命周期的阶段已经默认和一些插件的目标进行了绑定。例如Maven默认将`maven-compiler-plugin`的`compile`目标与compile生命周期阶段绑定，因此命令mvn compile实际上是先定位到compile这一生命周期阶段，然后再根据绑定关系调用maven-compiler-plugin的`compile`目标。  
+* 自定义绑定。在pom.xml中进行配置，我们可以根据需要将任何插件目标绑定到任何生命周期的任何阶段。如：将maven-source-plugin的`jar-no-fork`目标绑定到default生命周期的package阶段，这样，以后在执行`mvn package`命令打包项目时，在package**阶段之后**会执行源代码打包。  
 **自定义绑定的插件目标是在绑定的生命周期阶段之后执行的**
 
 ```xml
@@ -143,7 +143,8 @@ maven本质是一个插件框架，maven每个生命周期的每个阶段(phase)
 ```
 mvn 插件目标前缀(prefix):插件目标 
 ``` 
-各插件目标的命令在官网可以查。例如mvn archetype:generate 就表示调用maven-archetype-plugin的generate目标，这种**带冒号的调用方式与生命周期无关**。
+
+各插件目标的命令在官网可以查。例如`mvn archetype:generate` 就表示调用maven-archetype-plugin的`generate`目标，这种**带冒号的调用方式与生命周期无关**。
 
 
 -------
@@ -183,12 +184,12 @@ mvn install -Dmaven.test.skip=true
 </build>
 ```
  
-这样，不管绑定到compile阶段的maven-compiler-plugin:compile任务，还是绑定到test-compiler阶段的maven-compiler-plugin:testCompiler任务，这都能够使用该配置，基于Java1.5版本进行编译。
+这样，不管绑定到compile阶段的`maven-compiler-plugin:compile`任务，还是绑定到test-compiler阶段的`maven-compiler-plugin:testCompiler`任务，这都能够使用该配置，基于Java1.5版本进行编译。
 
 
 
 ### POM中插件任务配置
-除了为插件配置全局的参数，用户还可以为某个插件任务配置特定的参数。以maven-antrun-plugin为例，它有一个目标run,可以用来在Maven中调用Ant任务。用户将maven-antrun-plugin:run绑定到多个生命周期阶段上，再加以不同的配置，就可以让Maven在不同的生命周期执行不同的任务，代码如下:
+除了为插件配置全局的参数，用户还可以为某个插件任务配置特定的参数。以maven-antrun-plugin为例，它有一个目标`run`,可以用来在Maven中调用Ant任务。用户将`maven-antrun-plugin:run`绑定到多个生命周期阶段上，再加以不同的配置，就可以让Maven在不同的生命周期执行不同的任务，代码如下:
 
 ```xml
 <build>
@@ -225,7 +226,7 @@ mvn install -Dmaven.test.skip=true
     </plugins>
 </build>
 ```
-上述代码片段中，首先，maven-antrun-plugin:run与validate绑定，从而构成一个id为ant-validate的任务。插件全局配置中的configuration元素位于plugin元素下面，而这里的configuration元素则位于execution元素下，表示这是特定任务的配置，而非插件整体的配置。这个ant-validate任务配置了一个echo Ant任务，向命令行输出一段文字，表示该任务是绑定到validate阶段的。第二个任务的id为ant-verify，它绑定到了verify阶段，同样它也输出一段文字到命令行，告诉该任务绑定到了verify阶段。
+上述代码片段中，首先，`maven-antrun-plugin:run`与validate绑定，从而构成一个id为ant-validate的任务。插件全局配置中的configuration元素位于plugin元素下面，而这里的configuration元素则位于execution元素下，表示这是特定任务的配置，而非插件整体的配置。这个ant-validate任务配置了一个echo Ant任务，向命令行输出一段文字，表示该任务是绑定到validate阶段的。第二个任务的id为ant-verify，它绑定到了verify阶段，同样它也输出一段文字到命令行，告诉该任务绑定到了verify阶段。
 
 
 -------
@@ -243,7 +244,7 @@ mvn install -Dmaven.test.skip=true
 ```
 mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin:2.1
 ```
-这里执行的是maven-help-plugins的describe目标，在参数的plugin中输入需要描述插件的groupId、artfactId和version。Maven在命令行输出maven-compiler-plugin的简要信息。
+这里执行的是maven-help-plugins的`describe`目标，在参数的plugin中输入需要描述插件的groupId、artfactId和version。Maven在命令行输出maven-compiler-plugin的简要信息。
 
 在描述插件的时候，还可以省去版本信息，让Maven自动获取最新版本来进行表述。例如：
 
@@ -289,7 +290,7 @@ Options:
 mvn help:describe-Dplugin=compiler
 mvn dependency:tree
 ```
-不过这里有个疑问，describe是maven-help-plugin的目标没错，但是冒号前面的help是什么呢？它既不是groupId，也不是artifactId,Maven是如何根据该信息找到对应版本插件的呢？同理为什么不是maven-dependency-plugin:tree,而是dependency:tree
+不过这里有个疑问，describe是maven-help-plugin的目标没错，但是冒号前面的help是什么呢？它既不是groupId，也不是artifactId,Maven是如何根据该信息找到对应版本插件的呢？同理为什么不是`maven-dependency-plugin:tree`,而是`dependency:tree`
 
 解答该疑问之前，可以尝试一下如下命令：
 
@@ -484,7 +485,7 @@ Maven遍历本地仓库和所有远程插件仓库，将该路径下的仓库元
 ### 解析插件前缀
 mvn命令行支持使用插件前缀来简化插件的调用，现在解释Maven如何根据插件前缀解析到插件的坐标的。
 
-插件前缀与groupId:artifactId是一一对应的，这种匹配关系存储在仓库元数据中。这里的仓库元数据不是groupId/artifactId/maven-metadata.xml，而是groupId/maven-metadata.xml。当Maven解析前缀:
+插件前缀与`groupId:artifactId`是一一对应的，这种匹配关系存储在仓库元数据中。这里的仓库元数据不是groupId/artifactId/maven-metadata.xml，而是groupId/maven-metadata.xml。当Maven解析前缀:
 
 * 首先会基于默认的groupId(org.apache.maven.plugins)归并所有插件仓库的元数据org/apache/maven/plugins/maven-metadata.xml
 * 其次检查归并后的元素，根据前缀(prefix)找到对应的artifactId；

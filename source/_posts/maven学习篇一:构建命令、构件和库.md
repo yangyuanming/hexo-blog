@@ -1,5 +1,5 @@
 ---
-title: maven常用构建命令、构件和库
+title: maven学习篇一:构建命令、构件和库
 comment: true
 tags:
   - maven
@@ -14,23 +14,26 @@ date: 2018-07-22 11:42:00
 ---
 
 ## maven常用构建命令
-1. 查看maven版本：mvn -v
-2. 编译：mvn compile
-3. 打包：mvn package
-4. 测试：mvn test
-5. 删除target目录：mvn clean
-6. 安装jar包到本地仓库：mvn install  
+1. 查看maven版本：`mvn -v`
+2. 编译：`mvn compile`
+3. 打包：`mvn package`
+4. 测试：`mvn test`
+5. 删除target目录：`mvn clean`
+6. 安装jar包到本地仓库：`mvn install` 
+<!--more--> 
 7. 自动建立目录结构的两种方式：
 
-* mvn archetype:generate 按指示输入信息
+* `mvn archetype:generate` 按指示输入信息
 
-* mvn archetype:generate  
+* `mvn archetype:generate` 
+
+```
 -DgroupId=网址+项目名  
 -DartifactId=项目名-模块名  
 -Dversion=版本号  
 -Dpackage=代码包名
+```
 
-<!--more-->
 -------
 
 ## 构件、仓库、镜像仓库
@@ -44,11 +47,11 @@ date: 2018-07-22 11:42:00
 
 * 任何的构件都有唯一的坐标，Maven根据这个坐标定义了构件在仓库中的唯一存储路径。
 * 坐标的组成：
-    * groupId：当前Maven构件隶属的项目名。实际开发中，项目往往会模块化开发，如spring-core,spring-aop等，他们都是Spring项目下不同的模块。命名方式与Java包名类似，通常是域名的反向书写。如ch.qos.logback，事实上项目管理组织的网址是：http://logback.qos.ch/ 。(必须)
-    * artifactId：隶属项目中的模块名。(必须)
-    * version：当前版本。(必须)
-    * packaging：打包方式，如jar,war... (必须)
-    * classifier：帮助定义构建输出的一些附属构件。如spring-core.jar，还生成有文档javadoc.jar，源码sources.jar。
+    * `groupId` 当前Maven构件隶属的项目名。实际开发中，项目往往会模块化开发，如spring-core,spring-aop等，他们都是Spring项目下不同的模块。命名方式与Java包名类似，通常是域名的反向书写。如ch.qos.logback，事实上项目管理组织的网址是：http://logback.qos.ch/ 。(必须)
+    * `artifactId`：隶属项目中的模块名。(必须)
+    * `version`：当前版本。(必须)
+    * `packaging`：打包方式，如jar,war... (必须)
+    * `classifier`：帮助定义构建输出的一些附属构件。如spring-core.jar，还生成有文档javadoc.jar，源码sources.jar。
     
 #### Maven构件在仓库中的存储路径
 * 基于groupId准备路径，将句点分隔符转成路径分隔符，就是将  "."  转换成 "/" ; example： org.testng --->org/testng
