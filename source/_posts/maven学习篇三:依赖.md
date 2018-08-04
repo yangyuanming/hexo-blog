@@ -1,5 +1,5 @@
 ---
-title: maven学习篇三:依赖
+title: 'maven学习篇三:依赖'
 comment: true
 tags:
   - maven
@@ -7,6 +7,7 @@ tags:
 categories:
   - 工具学习
   - maven
+abbrlink: 2b7d8cb0
 date: 2018-08-04 19:44:00
 ---
 

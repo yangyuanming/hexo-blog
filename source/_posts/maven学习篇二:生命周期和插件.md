@@ -22,14 +22,13 @@ maven抽象出了3套生命周期，其具体实现是依赖于[插件](https://
 
 ### Clean Lifecycle 
 清理项目，在进行真正的构建之前进行一些清理工作。
+ <!--more-->
 
 *  `pre-clean`     执行clean前需要完成的工作  
 
 *  `clean`     clean上一次构建生成的所有文件  
 
 *  `post-clean`    执行clean后需要立刻完成的工作  
-
- <!--more-->
     
 这里的clean就是指的`mvn clean`。在一套生命周期内，运行某个阶段会自动按序运行之前阶段，`mvn clean=mvn pre-clean clean`。
 
@@ -140,9 +139,10 @@ maven本质是一个插件框架，maven每个生命周期的每个阶段(phase)
 
 ### 运行命令时直接指定插件目标(与生命周期无关)  
 
+
 ```
 mvn 插件目标前缀(prefix):插件目标 
-``` 
+```
 
 各插件目标的命令在官网可以查。例如`mvn archetype:generate` 就表示调用maven-archetype-plugin的`generate`目标，这种**带冒号的调用方式与生命周期无关**。
 
@@ -270,7 +270,6 @@ mvn help:describe -Dplugin=compiler-Ddetail
 如果在命令行运行mvn -h来显示mvn命令帮助，可以看到如下的信息：
 
 ```
-
 usage: mvn [options] [<goal(s)>] [<phase(s)>]
  
 Options:
