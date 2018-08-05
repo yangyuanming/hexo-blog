@@ -1,12 +1,10 @@
 ---
-title: maven学习篇二:生命周期和插件
+title: maven(二):生命周期和插件
 comment: true
 tags:
   - maven
   - maven生命周期
-  - maven插件目标
-  - maven插件配置
-  - maven插件解析
+  - maven插件
 categories:
   - 工具学习
   - maven

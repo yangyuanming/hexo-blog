@@ -1,10 +1,9 @@
 ---
-title: maven学习篇一:构建命令、构件和库
+title: maven(一):构建命令、构件和库
 comment: true
 tags:
   - maven
   - maven构建命令
-  - maven构件
   - maven库
 categories:
   - 工具学习
@@ -67,7 +66,7 @@ date: 2018-07-22 11:42:00
 
 #### 特性    
 * 构件具有依赖传递。例如：项目依赖构件A，而构件A又依赖B，Maven会将A和B都视为项目的依赖。
-* 构件之间存在版本冲突时，Maven会依据 “短路优先” 原则加载构件。此外，我们也可以在POM.XML中，使用<exclusions></exclusions>显式排除某个版本的依赖，以确保项目能够运行。
+* 依赖之间存在版本冲突时，Maven会依据 “短路优先” 原则加载构件。如果引用的路径长度相同时，遵循“声明优先”的原则。此外，我们也可以在POM.XML中，使用<exclusions></exclusions>显式排除某个版本的依赖，以确保项目能够运行。
     * 项目依赖构件A和B，构件A → C → D(version:1.0.0)，构件B → D(version:1.1.0)，此时，Maven会优先解析加载D(version:1.1.0)。
     * 项目依赖构件A和B，构件A → D(version:1.0.0)， 构件B → D(version:1.1.0)，此时，Maven会优先解析加载D(version:1.0.0)。
 * 构件的依赖范围。Maven在项目的构建过程中，会编译三套classpath，分别对应：编译期，运行期，测试期。而依赖范围，就是为构件指定它可以作用于哪套classpath。
