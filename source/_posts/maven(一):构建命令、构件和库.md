@@ -45,10 +45,10 @@ date: 2018-07-22 11:42:00
 
 * 任何的构件都有唯一的坐标，Maven根据这个坐标定义了构件在仓库中的唯一存储路径。
 * 坐标的组成：
-    * `groupId` 当前Maven构件隶属的项目名。实际开发中，项目往往会模块化开发，如spring-core,spring-aop等，他们都是Spring项目下不同的模块。命名方式与Java包名类似，通常是域名的反向书写。如ch.qos.logback，事实上项目管理组织的网址是：http://logback.qos.ch/ 。(必须)
+    * `groupId` 当前Maven构件隶属的项目名。实际开发中，项目往往会模块化开发，如spring-core,spring-aop等，他们都是Spring项目下不同的模块。命名方式与Java包名类似，通常是项目名+域名的反向书写。(必须)
     * `artifactId`：隶属项目中的模块名。(必须)
     * `version`：当前版本。(必须)
-    * `packaging`：打包方式，如jar,war... (必须)
+    * `packaging`：打包方式，如jar,war... 。默认为jar(必须)
     * `classifier`：帮助定义构建输出的一些附属构件。如spring-core.jar，还生成有文档javadoc.jar，源码sources.jar。
     
 #### Maven构件在仓库中的存储路径
@@ -140,8 +140,8 @@ date: 2018-07-22 11:42:00
 
 ## 参考资料
 
->https://www.cnblogs.com/Maple-leaves/p/5785885.html
->https://blog.csdn.net/chengfangjunmy/article/details/61192021
+>**易枫**,[Maven之构件](https://www.cnblogs.com/Maple-leaves/p/5785885.html)
+>**chengfangjunmy**,[Maven](https://blog.csdn.net/chengfangjunmy/article/details/61192021)
 
 
 

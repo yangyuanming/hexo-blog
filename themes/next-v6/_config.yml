@@ -351,7 +351,7 @@ custom_logo:
 # Code Highlight theme
 # Available values: normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night bright
 
 # Enable "cheers" for archive page.
 cheers_enabled: true
@@ -362,7 +362,7 @@ cheers_enabled: true
 #max_content_width: 1000px
 
 # Manual define the sidebar width
-# !!Only available for Gemini Scheme currently
+# !!Only available for Gemini Scheme currentl
 # Leave it empty for the default 240
 sidebar_width:
 
@@ -838,7 +838,7 @@ canvas_nest: false
 # JavaScript 3D library.
 # Dependencies: https://github.com/theme-next/theme-next-three
 # three_waves
-three_waves: true
+three_waves: false
 # canvas_lines
 canvas_lines: false
 # canvas_sphere

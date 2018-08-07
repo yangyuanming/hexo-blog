@@ -433,7 +433,7 @@ http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-metadata.xml
 > 同样是为了简化插件的配置和使用，在用户没有提供插件版本的情况下，Maven会自动解析插件版本。
 > 首先，Maven的超级POM中为所有核心插件设定了版本,超级POM是所有Maven项目的父POM，所有项目都会继承这个超级POM配置，因此，即使用户不加任何配置，Maven使用核心插件的时候，他们的版本都已经确定了，这些插件包括maven-clean-plugin、maven-compiler-plugin、maven-surefire-plugin等。
 
-上面说法是来自其他博客，我表示质疑，我使用的是maven3.5.4，在超级pom中并没有发现其为所有核心插件设定了版本。对于超级pom中没有设定版本的核心插件，没有指定版本时应该使用release版本。
+上面说法是来自其他博客，我表示质疑，我使用的是maven3.5.4，在超级pom中并没有发现其为所有核心插件设定了版本。这点不明白，以后搞清楚再补充。
 
 如果用户使用某个插件时没有设定版本，而这个插件又不属于核心插件范畴，Maven就会去检查所有仓库中的可用版本，然后做出选择。以maven-compiler-plugin为例，他在中央仓库的[仓库元数据](http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/maven-metadata.xml)
 
@@ -519,7 +519,7 @@ mvn命令行支持使用插件前缀来简化插件的调用，现在解释Maven
 
 ## 参考资料
 
->http://blog.sina.com.cn/s/blog_e01142dc0102wup3.html
->https://www.cnblogs.com/wangwei-beijing/p/6535081.html
+>**321笨丫头**,[maven install、maven clean、project clean ](http://blog.sina.com.cn/s/blog_e01142dc0102wup3.html)
+>**lofty**,[Maven——生命周期与插件****](https://www.cnblogs.com/wangwei-beijing/p/6535081.html)
 
 
