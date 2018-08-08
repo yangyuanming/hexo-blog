@@ -15,14 +15,14 @@ date: 2018-07-22 11:42:00
 ## maven常用构建命令
 1. 查看maven版本：`mvn -v`
 2. 编译：`mvn compile`
-3. 打包：`mvn package`
+3. 打包：`mvn package`  
+<!--more-->
 4. 测试：`mvn test`
 5. 删除target目录：`mvn clean`
 6. 安装jar包到本地仓库：`mvn install` 
 7. 自动建立目录结构的两种方式：
 
-* `mvn archetype:generate` 按指示输入信息
-<!--more--> 
+* `mvn archetype:generate` 按指示输入信息 
 * `mvn archetype:generate` 
 
 ```
