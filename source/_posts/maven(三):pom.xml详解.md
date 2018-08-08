@@ -9,6 +9,7 @@ categories:
   - maven
 date: 2018-08-07 22:03:00
 ---
+<!--more-->
 ## pom.xml详解
 ```
 <project xmlns="http://maven.apache.org/POM/4.0.0"     
