@@ -1,5 +1,5 @@
 ---
-title: maven(四):依赖
+title: 'maven(四):依赖'
 comment: true
 tags:
   - maven
@@ -7,6 +7,7 @@ tags:
 categories:
   - 工具学习
   - maven
+abbrlink: '7e899530'
 date: 2018-08-06 19:44:00
 ---
 
