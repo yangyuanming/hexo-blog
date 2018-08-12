@@ -1,5 +1,5 @@
 ---
-title: maven(一):构建命令、构件和库
+title: 'maven(一):构建命令、构件和库'
 comment: true
 tags:
   - maven
@@ -8,7 +8,7 @@ tags:
 categories:
   - 工具学习
   - maven
-abbrlink: 5ebf0f9d
+abbrlink: 25edb67f
 date: 2018-07-22 11:42:00
 ---
 
@@ -31,9 +31,6 @@ date: 2018-07-22 11:42:00
 -Dversion=版本号  
 -Dpackage=代码包名
 ```
-
--------
-
 ## 构件、仓库、镜像仓库
 
 ### 构件
@@ -74,7 +71,6 @@ date: 2018-07-22 11:42:00
 ### 仓库(repository)
 分为本地仓库和远程仓库。先去本地仓库查询构件，如果没有就去远程仓库下载。
 
-
 > maven提供了一个默认的全球中央仓库，解压lib/maven-model-builder-version.jar，可以发现pom-4.0.0.xml在org/apache/maven/model下,pom-4.0.0.xml中配置了该仓库，所有项目的pom.xml都会继承该xml,默认就使用了该全球中央仓库。用户可以在pom.xml中自定义远程仓库。
 
 **中央仓库配置如下：**
@@ -90,11 +86,8 @@ date: 2018-07-22 11:42:00
       </snapshots>
 </repository>
 ```
-
-
 ### 镜像仓库
 配置远程仓库的镜像，所有针对原仓库的访问将转到镜像仓库，原仓库的url设置无效。
-
 
 * conf/settings.xml中配置镜像仓库，镜像可以有多个。
 
@@ -135,8 +128,6 @@ date: 2018-07-22 11:42:00
 ```
 
 * 备份settings.xml到maven_repo文件夹(自定义仓库文件夹)，在IDE中设置settings file的路径为备份的settings.xml的路径。以后更新maven，不用重新配置settings.xml。
-
--------
 
 ## 参考资料
 

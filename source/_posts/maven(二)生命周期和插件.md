@@ -1,5 +1,5 @@
 ---
-title: maven(二):生命周期和插件
+title: 'maven(二):生命周期和插件'
 comment: true
 tags:
   - maven
@@ -8,7 +8,7 @@ tags:
 categories:
   - 工具学习
   - maven
-abbrlink: b37b3bbf
+abbrlink: fa942646
 date: 2018-07-24 07:30:00
 ---
 
@@ -90,17 +90,9 @@ maven抽象出了3套生命周期，其具体实现是依赖于[插件](https://
 
 * `site-deploy`     将生成的站点文档部署到特定的服务器上
 
-
--------
-
-
 ## maven插件目标
 maven本质是一个插件框架，maven每个生命周期的每个阶段(phase)默认绑定了一个或多个插件中的一个或多个目标。用户可以自行配置或编写插件。
 **一个插件对应一个或多个目标，一个插件可以绑定多个生命周期阶段。**
-
-
--------
-
 
 ##  两种方式调用插件目标
 ### 插件目标绑定maven生命周期阶段  
@@ -142,10 +134,6 @@ mvn 插件目标前缀(prefix):插件目标
 ```
 
 各插件目标的命令在官网可以查。例如`mvn archetype:generate` 就表示调用maven-archetype-plugin的`generate`目标，这种**带冒号的调用方式与生命周期无关**。
-
-
--------
-
 
 ## 插件配置
 
@@ -225,9 +213,6 @@ mvn install -Dmaven.test.skip=true
 ```
 上述代码片段中，首先，`maven-antrun-plugin:run`与validate绑定，从而构成一个id为ant-validate的任务。插件全局配置中的configuration元素位于plugin元素下面，而这里的configuration元素则位于execution元素下，表示这是特定任务的配置，而非插件整体的配置。这个ant-validate任务配置了一个echo Ant任务，向命令行输出一段文字，表示该任务是绑定到validate阶段的。第二个任务的id为ant-verify，它绑定到了verify阶段，同样它也输出一段文字到命令行，告诉该任务绑定到了verify阶段。
 
-
--------
-
 ## 获取插件信息
 
 仅仅理解如何配置和使用插件是不够的，当遇到一个构建任务的时候，用户还需要知道去哪里寻找合适的插件，以帮助完成任务，找到正确的插件之后，还要详细了解该插件的配置点。由于Maven的插件非常多，这其中大部分没有完善文档，因此，使用正确的插件并进行正确的配置，其实并不是一件容易的事。
@@ -296,9 +281,6 @@ mvn org.apache.maven.plugins:maven-help-plugin:2.1:describe-Dplugin=compiler
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:tree
 ```
 这两条命令就比较容易理解了，插件的groupId、artifactId、version以及goal都得以清晰描述。它们的效果与之前的两条命令基本是一样的，但是显然前面的命令更简洁，更容易记忆和使用。为了达到该目的，Maven引入了目标前缀的概念help是maven-help-plugin的目标前缀，dependency是maven-dependency-plugin的前缀，有了插件前缀，Maven就能找到对应的artifactId。不过，除了artifactId,Maven还需要得到groupId和version才能精确定位到某个插件。
-
-
--------
 
 ## 插件解析机制
 
@@ -513,8 +495,6 @@ mvn命令行支持使用插件前缀来简化插件的调用，现在解释Maven
   </plugins>
 </metadata>
 ```
-
--------
 
 ## 参考资料
 
