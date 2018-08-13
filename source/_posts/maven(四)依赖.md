@@ -13,7 +13,10 @@ date: 2018-08-12 14:00:00
 <!--more-->
 
 ```xml
-project>
+<project
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:shemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/maven-v4_0_0.xsd">
     ......
     <dependencies>
         <dependency>
@@ -132,7 +135,10 @@ maven的传递性依赖方便了我们开发，一般我们只关心直接依赖
 举个例子，Spring Framework包含很多模块，例如core:2.5.6、bean:2.5.6、context:2.5.6和support:2.5.6,他们来着同一项目的不同模块，因此，所有这些依赖的版本都是相同的，而且，如果以后需要升级Spring Framework，这些依赖的版本会一起升级，这样我们就可以像Java中声明一个Constants一样，为依赖的项目的版本设置一个这样类似常量的东西。这样在升级Spring Framework的时候就需要修改一处，代码如下：
 
 ```xml
-<project>
+<project
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:shemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yangyuanming</groupId>
     <artfactId>blog_v3</artifactId>

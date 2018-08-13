@@ -106,7 +106,10 @@ maven和java一样，无法使用多重继承。如果遇到一个模块很多�
 可以看出，第一步跟使用继承的方式一样，定义专门管理依赖的pom，定义`<dependencyManagement>`，只是第二步不同，依赖管理引入方不是通过继承的方式引入依赖管理的配置，而是在`<dependencyManagement>`中以引入**import** scope依赖的方式获得依赖管理的配置。下面例子示范：  
 定义用于依赖管理的pom
 ```xml
-<project>
+<project
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:shemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.yangyuanming</groupId>
   <artifactId>sample-dependency-infrastructure</artifactId>
