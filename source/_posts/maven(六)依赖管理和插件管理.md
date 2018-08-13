@@ -12,6 +12,7 @@ date: 2018-08-13 15:29:00
 ## 依赖管理
 ### 继承dependencyManagement
 通过继承可以减少子模块的重复配置，但会存在继承多余依赖的问题。maven提供了                               `<dependencyManagement>`,在**`<dependencyManagement>`元素下的依赖声明不会引入实际的依赖**，不过他能够管理`<denpendencies>`下的依赖。父模块定义`<dependencyManagement>`，子模块可以继承父模块，使用父模块依赖配置，同时保证子模块依赖使用的灵活度。
+<!--more-->
 举个例子，在父模块中定义：
 
 ```xml

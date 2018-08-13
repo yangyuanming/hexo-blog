@@ -11,7 +11,7 @@ date: 2018-08-12 20:22:00
 ---
 ## 聚合
 Maven聚合（或者称为多模块），是为了能够使用一条命令就构建多个模块，方便快速构建项目，例如已经有两个模块，分别为A,B，我们需要创建一个额外的模块（假设名字为aggregator，然后通过该模块，来构建整个项目的所有模块，aggregator本身作为一个Maven项目，它必须有自己的POM,不过作为一个聚合项目，其POM又有特殊的地方，看下面的配置
-
+<!--more-->
 ```xml
 <project
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
