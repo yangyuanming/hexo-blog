@@ -1,5 +1,5 @@
 ---
-title: 'maven(四):依赖'
+title: maven(四):依赖
 comment: true
 tags:
   - maven
@@ -7,7 +7,6 @@ tags:
 categories:
   - 工具学习
   - maven
-abbrlink: '7e899530'
 date: 2018-08-12 14:00:00
 ---
 ## 依赖的配置
@@ -41,7 +40,7 @@ project>
     - test:测试依赖范围。使用该范围的Maven依赖，只对于测试classpath有效，在编译主代码或者运行项目的使用时将无法使用此类依赖。典型的例子是JUnit,它只是在编译测试代码和运行测试的时候需要该依赖。这个范围是不可传递的。     
     - provided：已提供依赖范围。使用此依赖范围的Maven依赖，对于编译和测试的classpath有效，但是在运行时无效。典型的例子是servlet-api，编译和测试项目的时候需要改依赖，但是在运行项目的时候，由于容器已经提供，就不需要Maven重复地引入一遍。该依赖不可传递。
     - runtime:运行时依赖范围。使用此依赖范围的Maven依赖，对于测试和运行classpath有效，但是编译主代码时无效。典型的例子是JDBC驱动实现，项目主代码的编译只需要JDK提供的JDBC接口，只有在测试或者运行项目的时候才需要实现上述接口的JDBC驱动。
-    - import(Maven 2.0.9及以上)：导入依赖范围。仅支持依赖类型为pom的依赖，该pom配置了<dependencyManagement>。该依赖范围不会对三种classpath产生实际的影响,不参与限制依赖关系的传递性。。
+    - import(Maven 2.0.9及以上)：导入依赖范围。仅限于在<dependencyManagement>中引入的依赖，依赖的类型必须为pom，才能声明scope为import。对于被导入的pom也必须配置有<dependencyManagement> ,配置有对依赖的管理。该依赖范围不会对三种classpath产生实际的影响,不参与限制依赖关系的传递性。引进方其实引进的是被引进方pom.xml中<dependencyManagement>的配置。
     - system:系统依赖范围，该范围与三种classpath的关系，和provided依赖范围完全一致。但是，使用system范围的依赖时必须通过systemPath元素显式的指定依赖文件的路径。由于此类依赖不是通过Maven仓库解析，而且往往与本机系统绑定，可能造成构建的不可移植，因此需要谨慎使用。systemPath元素可以引用环境变量，如：
             
     ```xml
@@ -135,9 +134,9 @@ maven的传递性依赖方便了我们开发，一般我们只关心直接依赖
 ```xml
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.up366.feishu</groupId>
-    <artfactId>feishu_v3</artifactId>
-    <name>feishu_v3</name>
+    <groupId>com.yangyuanming</groupId>
+    <artfactId>blog_v3</artifactId>
+    <name>blog</name>
     <version>1.0.0-SNAPSHOT</version>
     
     <properties>

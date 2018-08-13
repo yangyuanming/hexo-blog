@@ -1,5 +1,5 @@
 ---
-title: 'maven(三):pom.xml详解'
+title: maven(三):pom.xml详解
 comment: true
 tags:
   - maven
@@ -7,7 +7,6 @@ tags:
 categories:
   - 工具学习
   - maven
-abbrlink: 9d66f127
 date: 2018-08-07 22:03:00
 ---
 ## pom.xml详解
@@ -24,7 +23,7 @@ date: 2018-08-07 22:03:00
     <groupId><groupId/>
     <!--被继承的父项目的版本-->    
     <version><version/>
-    <!-- 父项目的pom.xml文件的相对路径。相对路径允许你选择一个不同的路径。默认值是../pom.xml。Maven首先在构建当前项目的地方寻找父项目的pom，其次在文件系统的这个位置（relativePath位置），然后在本地仓库，最后在远程仓库寻找父项目的pom。-->    
+    <!-- 元素relativePath表示了**父模块POM**的相对路径。相对路径允许你选择一个不同的路径。默认值是../pom.xml。当项目构建时，Maven会首先根据relativePath检查父pom，然后在本地仓库，最后在远程仓库寻找父项目的pom。此例子父模块parent和子模块在同一级目录下。-->    
     <relativePath><relativePath/>
   </parent>
   <!--声明项目描述符遵循哪一个POM模型版本。模型本身的版本很少改变，虽然如此，但它仍然是必不可少的，这是为了当Maven引入了新的特性或者其他模型变更的时候，确保稳定性。-->       
@@ -359,12 +358,12 @@ date: 2018-08-07 22:03:00
       <classifier></classifier>
       
       <!--依赖范围。在项目发布过程中，帮助决定哪些构件被包括进来。欲知详情请参考依赖机制。
-      - compile:编译依赖范围。如果没有指定，就会默认使用该依赖范围，使用此依赖范围的Maven依赖，对于编译、测试、运行三种classpath都有效。此外，这些依赖关系会传播到依赖项目。
-      - test:测试依赖范围。使用该范围的Maven依赖，只对于测试classpath有效，在编译主代码或者运行项目的使用时将无法使用此类依赖。典型的例子是JUnit,它只是在编译测试代码和运行测试的时候需要该依赖。这个范围是不可传递的。     
-      - provided：已提供依赖范围。使用此依赖范围的Maven依赖，对于编译和测试的classpath有效，但是在运行时无效。典型的例子是servlet-api，编译和测试项目的时候需要改依赖，但是在运行项目的时候，由于容器已经提供，就不需要Maven重复地引入一遍。该依赖不可传递。
-      - runtime:运行时依赖范围。使用此依赖范围的Maven依赖，对于测试和运行classpath有效，但是编译主代码时无效。典型的例子是JDBC驱动实现，项目主代码的编译只需要JDK提供的JDBC接口，只有在测试或者运行项目的时候才需要实现上述接口的JDBC驱动。
-      - system:系统依赖范围，该范围与三种classpath的关系，和provided依赖范围完全一致。但是，使用system范围的依赖时必须通过systemPath元素显式的指定依赖文件的路径。由于此类依赖不是通过Maven仓库解析，而且往往与本机系统绑定，可能造成构建的不可移植，因此需要谨慎使用。
-      - import(Maven 2.0.9及以上)：导入依赖范围。该依赖范围不会对三种classpath产生实际的影响-->     
+        - compile:编译依赖范围。如果没有指定，就会默认使用该依赖范围，使用此依赖范围的Maven依赖，对于编译、测试、运行三种classpath都有效。此外，这些依赖关系会传播到依赖项目。
+    - test:测试依赖范围。使用该范围的Maven依赖，只对于测试classpath有效，在编译主代码或者运行项目的使用时将无法使用此类依赖。典型的例子是JUnit,它只是在编译测试代码和运行测试的时候需要该依赖。这个范围是不可传递的。     
+    - provided：已提供依赖范围。使用此依赖范围的Maven依赖，对于编译和测试的classpath有效，但是在运行时无效。典型的例子是servlet-api，编译和测试项目的时候需要改依赖，但是在运行项目的时候，由于容器已经提供，就不需要Maven重复地引入一遍。该依赖不可传递。
+    - runtime:运行时依赖范围。使用此依赖范围的Maven依赖，对于测试和运行classpath有效，但是编译主代码时无效。典型的例子是JDBC驱动实现，项目主代码的编译只需要JDK提供的JDBC接口，只有在测试或者运行项目的时候才需要实现上述接口的JDBC驱动。
+    - import(Maven 2.0.9及以上)：导入依赖范围。仅限于在<dependencyManagement>中引入的依赖，依赖的类型必须为pom，才能声明scope为import。对于被导入的pom也必须配置有<dependencyManagement>,配置有对依赖的管理。该依赖范围不会对三种classpath产生实际的影响,不参与限制依赖关系的传递性。引进方其实引进的是被引进方pom.xml中<dependencyManagement>的配置。
+    - system:系统依赖范围，该范围与三种classpath的关系，和provided依赖范围完全一致。但是，使用system范围的依赖时必须通过systemPath元素显式的指定依赖文件的路径。由于此类依赖不是通过Maven仓库解析，而且往往与本机系统绑定，可能造成构建的不可移植，因此需要谨慎使用。-->     
       <scope>test</scope>
       <!--仅供system scope使用。注意，不鼓励使用这个元素，并且在新的版本中该元素可能被覆盖掉。该元素为依赖规定了文件系统上的路径。需要绝对路径而不是相对路径。推荐使用属性匹配绝对路径，例如${java.home}。-->    
       <systemPath></systemPath>
