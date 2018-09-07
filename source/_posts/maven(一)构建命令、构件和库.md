@@ -1,5 +1,7 @@
 ---
-title: maven(一):构建命令、构件和库
+title: 
+```maven(一):构建命令、构件和库
+```
 comment: true
 tags:
   - maven
@@ -24,7 +26,7 @@ date: 2018-07-22 11:42:00
 * `mvn archetype:generate` 按指示输入信息 
 * `mvn archetype:generate` 
 
-```
+```shell
 -DgroupId=网址+项目名  
 -DartifactId=项目名-模块名  
 -Dversion=版本号  
@@ -114,7 +116,7 @@ date: 2018-07-22 11:42:00
     * **\***:代表匹配所有的库。注意maven会优先匹配mirrorOf值与仓库id完全相同的镜像。例如id为rep1的仓库会优先匹配mirrorOf也为rep1的镜像，如果没有才会匹配mirrorOf为*的镜像。
     * **\*,!rep1**:匹配所有的库，除了rep1 
 
-    * **external:\***:代表匹配任意不在localhost上的仓库，或不是基于文件的仓库。这个主要是看repository中的url判断的。
+    * external:*:代表匹配任意不在localhost上的仓库，或不是基于文件的仓库。这个主要是看repository中的url判断的。
 
 ### 更改本地仓库位置
 

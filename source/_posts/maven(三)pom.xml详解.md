@@ -1,5 +1,5 @@
 ---
-title: 'maven(三):pom.xml详解'
+title: maven(三):pom.xml详解
 comment: true
 tags:
   - maven
@@ -7,7 +7,6 @@ tags:
 categories:
   - 工具学习
   - maven
-abbrlink: 9d66f127
 date: 2018-08-07 22:03:00
 ---
 ## pom.xml详解

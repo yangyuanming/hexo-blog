@@ -1,5 +1,5 @@
 ---
-title: 'maven(五):聚合和继承'
+title: maven(五):聚合和继承
 comment: true
 tags:
   - maven
@@ -7,7 +7,6 @@ tags:
 categories:
   - 工具学习
   - maven
-abbrlink: 86efede5
 date: 2018-08-12 20:22:00
 ---
 ## 聚合

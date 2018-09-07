@@ -128,7 +128,7 @@ maven本质是一个插件框架，maven每个生命周期的每个阶段(phase)
 ### 运行命令时直接指定插件目标(与生命周期无关)  
 
 
-```
+```shell
 mvn 插件目标前缀(prefix):插件目标 
 ```
 
@@ -142,7 +142,7 @@ mvn 插件目标前缀(prefix):插件目标
 
 例如，maven-surefire-plugin提供了一个maven.test.skip参数，当其值为true的时候，就会跳过执行测试，于是在运行命令的时候，加上如下-D参数就能跳过测试。
 
-```
+```shell
 mvn install -Dmaven.test.skip=true
 ```
 
@@ -222,35 +222,35 @@ mvn install -Dmaven.test.skip=true
 ### 使用maven-help-plugin描述插件
 除了访问在线的插件文档之外，还可以借助maven-help-plugin来获取插件的详细信息。。可以运行一下命令来获取maven-compiler-plugin2.1版本的信息：
 
-```
+```shell
 mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin:2.1
 ```
 这里执行的是maven-help-plugins的`describe`目标，在参数的plugin中输入需要描述插件的groupId、artfactId和version。Maven在命令行输出maven-compiler-plugin的简要信息。
 
 在描述插件的时候，还可以省去版本信息，让Maven自动获取最新版本来进行表述。例如：
 
-```
+```shell
 mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin
 ```
 进一步简化，可以使用插件目标前缀替换坐标。例如：
 
-```
+```shell
 mvn help:describe-Dplugin=compiler
 ```
 如果仅仅想描述某个插件目标的信息，可以加上goal参数：
 
-```
+```shell
 mvn help:describe-Dplugin=compiler-Dgoal=compile
 ```
 如果想让maven-help-plugin输出更详细的信息，可以加上detail参数：
 
-```
+```shell
 mvn help:describe -Dplugin=compiler-Ddetail
 ```
 ### 从命令行调用插件
 如果在命令行运行mvn -h来显示mvn命令帮助，可以看到如下的信息：
 
-```
+```shell
 usage: mvn [options] [<goal(s)>] [<phase(s)>]
  
 Options:
@@ -266,7 +266,7 @@ Options:
 
 可以通过mvn命令激活生命周期阶段，从而执行那些绑定在生命周期阶段上的插件目标。但Maven还支持直接从命令行调用插件目标。Maven支持这种方式是因为有些任务不适合绑定在生命周期上，例如maven-help-plugin:describe，我们不需要在构建项目的时候去描述插件信息，又如maven-dependency-plugin:tree,我们也不需要在构建项目的时候去显示依赖树，因此这些插件目标应该通过如下方式使用：
 
-```
+```shell
 mvn help:describe-Dplugin=compiler
 mvn dependency:tree
 ```
@@ -274,7 +274,7 @@ mvn dependency:tree
 
 解答该疑问之前，可以尝试一下如下命令：
 
-```
+```shell
 mvn org.apache.maven.plugins:maven-help-plugin:2.1:describe-Dplugin=compiler
 
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:tree

@@ -1,5 +1,5 @@
 ---
-title: 'maven(六):依赖管理和插件管理'
+title: maven(六):依赖管理和插件管理
 comment: true
 tags:
   - maven
@@ -7,7 +7,6 @@ tags:
 categories:
   - 工具学习
   - maven
-abbrlink: ffde8881
 date: 2018-08-13 15:29:00
 ---
 ## 依赖管理
