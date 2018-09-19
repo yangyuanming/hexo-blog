@@ -16,7 +16,7 @@ Maven聚合（或者称为多模块），是为了能够使用一条命令就构
 <project
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-        http://maven.apache.org/maven-v4_0_0.xsd>
+        http://maven.apache.org/maven-v4_0_0.xsd">
         <modelVersion>4.0.0</modelVersion>
         <groupId>com.yangyuanming</groupId>
         <artifact>aggregator</artifact>
