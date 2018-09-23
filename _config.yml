@@ -130,25 +130,25 @@ live2d:
 all_minifier: false
 
 html_minifier:
-  enable: true
+  enable: false
   ignore_error: false
   exclude:
 
 css_minifier:
-  enable: true
+  enable: false
   exclude:
     - '*.min.css'
 
 js_minifier:
-  enable: true
-  mangle: true
+  enable: false
+  mangle: false
   output:
   compress:
   exclude:
     - '*.min.js'
 
 image_minifier:
-  enable: true
+  enable: false
   interlaced: false
   multipass: false
   optimizationLevel: 2
@@ -161,10 +161,10 @@ jsonContent:
   meta: false
   pages: false
   posts:
-    title: true
-    date: true
-    path: true
-    text: true
+    title: falses
+    date: false
+    path: false
+    text: false
     raw: false
     content: false
     slug: false
