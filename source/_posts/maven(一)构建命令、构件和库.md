@@ -1,7 +1,5 @@
 ---
-title: 
-```maven(一):构建命令、构件和库
-```
+title: 'maven(一):构建命令、构件和库'
 comment: true
 tags:
   - maven
@@ -10,6 +8,7 @@ tags:
 categories:
   - 工具学习
   - maven
+abbrlink: 25edb67f
 date: 2018-07-22 11:42:00
 ---
 

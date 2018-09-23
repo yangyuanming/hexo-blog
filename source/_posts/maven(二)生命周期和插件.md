@@ -1,5 +1,5 @@
 ---
-title: maven(二):生命周期和插件
+title: 'maven(二):生命周期和插件'
 comment: true
 tags:
   - maven
@@ -8,6 +8,7 @@ tags:
 categories:
   - 工具学习
   - maven
+abbrlink: fa942646
 date: 2018-07-24 07:30:00
 ---
 
