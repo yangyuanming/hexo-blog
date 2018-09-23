@@ -497,7 +497,7 @@ mvn命令行支持使用插件前缀来简化插件的调用，现在解释Maven
 
 ## 参考资料
 
->**321笨丫头**,[maven install、maven clean、project clean ](http://blog.sina.com.cn/s/blog_e01142dc0102wup3.html)
->**lofty**,[Maven——生命周期与插件****](https://www.cnblogs.com/wangwei-beijing/p/6535081.html)
+>**321笨丫头**,[maven install、maven clean、project clean ](http://blog.sina.com.cn/s/blog_e01142dc0102wup3.html)  
+>**lofty**,[Maven——生命周期与插件](https://www.cnblogs.com/wangwei-beijing/p/6535081.html)
 
 

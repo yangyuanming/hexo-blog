@@ -673,6 +673,6 @@ date: 2018-08-07 22:03:00
 
 ```
 ## 参考资料
-**hcmony**,[Maven使用详解，非常详细](https://blog.csdn.net/hcmony/article/details/56013655)
+> **hcmony**,[Maven使用详解，非常详细](https://blog.csdn.net/hcmony/article/details/56013655)  
 
 

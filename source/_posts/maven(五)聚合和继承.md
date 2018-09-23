@@ -112,6 +112,6 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 * reporting:包括项目的报告输出目录配置，报告插件配置等。
 
 ## 参考资料
-**lofty**，[Maven——聚合与继承](https://www.cnblogs.com/wangwei-beijing/p/6535084.html)
+> **lofty**，[Maven——聚合与继承](https://www.cnblogs.com/wangwei-beijing/p/6535084.html)  
 
 

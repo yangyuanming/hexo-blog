@@ -182,9 +182,11 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 * 依赖分析命令：mvn dependency:analyze
 mvn dependency:analyze由两部分组成，首先是Used updeclared dependencies,意指项目中使用到的，没有显式声明的依赖。
 其次是Unused declared dependencies，意指项目中没有使用的，但是显是声明了的依赖。需要注意的是，对于这一类依赖，我们不应该简单的直接删除其声明，而是应该仔细分析，由于dependency:analyze只会分析编译主代码和测试代码需要用到的依赖，一些执行测试和运行时需要的依赖它就发现不了。建议不要乱删，当然有时候确实能通过该信息找到一些没用的依赖，但一定要小心测试。
+
 ## 参考资料
-**lofty**，[Maven——坐标与依赖](http://www.cnblogs.com/wangwei-beijing/p/6535073.html)
-[Introduction to the Dependency Mechanism](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html)
+
+> **lofty**，[Maven——坐标与依赖](http://www.cnblogs.com/wangwei-beijing/p/6535073.html)  
+> [Introduction to the Dependency Mechanism](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html)
 
 
 

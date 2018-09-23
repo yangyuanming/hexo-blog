@@ -205,5 +205,5 @@ maven提供了`<dependencyManagement>`进行依赖管理，同时也提供了`<p
 **关于`<pluginManagement>`，Maven并没有提供与import scope依赖类似的方式管理，那我们只能借助继承关系**，不过好在一般来说插件配置的数量远没有依赖配置那么多，因此这也不是一个问题。
 
 ## 参考资料
-**许晓斌**，[Maven实战（三）——多模块项目的POM重构](http://www.infoq.com/cn/news/2011/01/xxb-maven-3-pom-refactoring)
-**lofty**，[Maven——聚合与继承](https://www.cnblogs.com/wangwei-beijing/p/6535084.html)
+> **许晓斌**，[Maven实战（三）——多模块项目的POM重构](http://www.infoq.com/cn/news/2011/01/xxb-maven-3-pom-refactoring)  
+> **lofty**，[Maven——聚合与继承](https://www.cnblogs.com/wangwei-beijing/p/6535084.html)  
