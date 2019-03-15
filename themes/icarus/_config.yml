@@ -1,0 +1,103 @@
+# Menus
+menu:
+  主页: .
+  分类: categories
+  标签云: tags
+  归档: archives
+  关于: about
+
+# Customize
+customize:
+    logo:
+        enabled: true
+        width: 40
+        height: 40
+        url: images/logo.png
+    profile:
+        enabled: true # Whether to show profile bar
+        fixed: true
+        avatar: css/images/avatar.png
+        gravatar: jeremy.zftt@gmail.com # Gravatar email address, if you enable Gravatar, your avatar config will be overriden
+        author: Jeremy Yang
+        author_title: GDUT IMIS
+        location: GuangZhou, China
+        follow: https://github.com/yangyuanming/
+    highlight: monokai
+    sidebar: right # sidebar position, options: left, right or leave it empty
+    thumbnail: true # enable posts thumbnail, options: true, false
+    favicon: css/images/favicon.ico # path to favicon
+    social_links:
+        #github: http://github.com/hitkoo
+        #twitter: http://twitter.com/imhitkoo
+        #facebook: http://facebook.com/imhitkoo
+        #dribbble: /
+        #rss: /
+    social_link_tooltip: true # enable the social link tooltip, options: true, false
+
+# Widgets
+widgets:
+    - recent_posts
+    - category
+    - tagcloud
+    - archive
+    #- tag
+    - links
+
+# Search
+search:
+    insight: true # you need to install `hexo-generator-json-content` before using Insight Search
+    swiftype: # enter swiftype install key here
+    baidu: false # you need to disable other search engines to use Baidu search, options: true, false
+
+# Comment
+comment:
+    disqus:  # enter disqus shortname here
+    duoshuo: # enter duoshuo shortname here
+    youyan: # enter youyan uid here
+    facebook: # enter true to enable
+    isso: # enter the domain name of your own comment isso server eg. comments.example.com
+    changyan: # please fill in `appid` and `conf` to enable
+        appid:
+        conf:
+    gitment:
+        owner: #vvzerot
+        repo: #vvzerot.github.io
+        #Register an OAuth application, and you will get a client ID and a client secret.
+        client_id: #00a1f66fd329392ceb20
+        client_secret: #79499a3a3e78cb82e3b4dd07fb31fe3ed0845af7
+    livere: # enter livere uid here
+    valine: # Valine Comment System https://github.com/xCss/Valine
+        on: false # enter true to enable
+        appId: snQG2BlnuDUYlMKA3QV7n02L-gzGzoHsz # enter the leancloud application appId here
+        appKey: 74MpPI7wyUFhF7AQyckc8Uad # enter the leancloud application appKey here
+        notify: true # enter true to enable <Mail notifier> https://github.com/xCss/Valine/wiki/Valine-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%82%AE%E4%BB%B6%E6%8F%90%E9%86%92%E8%AE%BE%E7%BD%AE
+        verify: true # enter true to enable <Validation code>
+        placeholder: 不说点什么吗……没关系，反正我也不一定看到(发email呗)ε==(づ′▽`)づ # enter the comment box placeholder
+    valine_modify: # Valine Comment System https://github.com/xCss/Valine
+        on: true # enter true to enable
+        smiles_url: http://yangyuanming.com/smiles/
+        app_id: xX93OOtPsALUr1iDoSVFzAfw-gzGzoHsz # enter the leancloud application appId here
+        app_key: 3vtqrSui6oEwCorCECd1PtAI # enter the leancloud application appKey here
+        placeholder: 留下你的邮箱可以收到我的回复哦ε==(づ′▽`)づ # enter the comment box placeholder
+# Share
+share: default # options: jiathis, bdshare, addtoany, default
+
+# Plugins
+plugins:
+    lightgallery: true # options: true, false
+    justifiedgallery: true # options: true, false
+    google_analytics:  # enter the tracking ID for your Google Analytics
+    google_site_verification:  # enter Google site verification code
+    baidu_analytics: # enter Baidu Analytics hash key
+    mathjax: false # options: true, false
+
+# Miscellaneous
+miscellaneous:
+    open_graph: # see http://ogp.me
+        fb_app_id:
+        fb_admins:
+        twitter_id:
+        google_plus:
+    links:
+        YYm: http://yym.im
+
