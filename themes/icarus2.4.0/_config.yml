@@ -133,7 +133,7 @@ widgets:
                 url: 'http://github.com/yangyuanming'
             RSS:
                 icon: fas fa-rss
-                url: /
+                url: /atom.xml
     -
         # Widget name
         type: toc
