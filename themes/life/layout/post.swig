@@ -91,17 +91,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="row post-donate-content">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <p>支付宝</p>
                                 <img class="post-donate-content-img no-lightbox" src="{{ theme.alipay }}"/>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <p>微信</p>
                                 <img class="post-donate-content-img no-lightbox" src="{{ theme.wechat }}"/>
-                            </div>
-                            <div class="col-md-4">
-                                <p>财付通</p>
-                                <img class="post-donate-content-img no-lightbox" src="{{ theme.qq }}"/>
                             </div>
                         </div>
                     </div>
@@ -201,7 +197,7 @@
               av: AV, // source from av-min.js
               el: '.comment' ,
               notify:false, // 邮件提醒 v1.1.4新增
-              verify:false, // 验证码 v1.1.4新增
+              verify:true, // 验证码 v1.1.4新增
               app_id: '{{theme.leancloud.app_id}}',
               app_key: '{{theme.leancloud.app_key}}',
               placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
