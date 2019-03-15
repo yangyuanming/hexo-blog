@@ -1,22 +1,23 @@
 # Hexo Configuration
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
-
 # Site
-title: Hexo
-subtitle:
-description:
-keywords:
-author: John Doe
-language:
+title: 杨远明的小站
+subtitle: 时光偷走了记忆，我试着留下痕迹
+description: IMIS,GDUT
+keywords: Yuanming,Yang Yuanming,杨远明
+author: 杨远明
+#language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://yangyuanming.com
 root: /
-permalink: :year/:month/:day/:title/
-permalink_defaults:
+#permalink: :year/:month/:day/:title/
+permalink: post/:abbrlink.html
+#permalink_defaults:
 
 # Directory
 source_dir: source
