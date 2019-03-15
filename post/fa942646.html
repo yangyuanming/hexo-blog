@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>maven(二):生命周期和插件 - Memory Capsule</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="maven生命周期maven抽象出了3套生命周期，其具体实现是依赖于插件。每套生命周期是相互独立的，都由一组阶段(Phase)组成。每套生命周期中的阶段是有顺序的，后面阶段依赖于前面的阶段，执行后面阶段会自动执行之前的阶段，但不会触发不同生命周期的阶段。">
+<meta name="keywords" content="maven,maven生命周期,maven插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="maven(二):生命周期和插件">
+<meta property="og:url" content="https://yangyuanming.github.io/post/fa942646.html">
+<meta property="og:site_name" content="Memory Capsule">
+<meta property="og:description" content="maven生命周期maven抽象出了3套生命周期，其具体实现是依赖于插件。每套生命周期是相互独立的，都由一组阶段(Phase)组成。每套生命周期中的阶段是有顺序的，后面阶段依赖于前面的阶段，执行后面阶段会自动执行之前的阶段，但不会触发不同生命周期的阶段。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-15T20:08:53.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="maven(二):生命周期和插件">
+<meta name="twitter:description" content="maven生命周期maven抽象出了3套生命周期，其具体实现是依赖于插件。每套生命周期是相互独立的，都由一组阶段(Phase)组成。每套生命周期中的阶段是有顺序的，后面阶段依赖于前面的阶段，执行后面阶段会自动执行之前的阶段，但不会触发不同生命周期的阶段。">
+
+
+
+
+
+<link rel="icon" href="/images/avatar.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/avatar.png" alt="maven(二):生命周期和插件" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-07-24T07:30:00.000Z">2018-07-24</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    34 分钟 读完 (大约 5104 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                maven(二):生命周期和插件
+            
+        </h1>
+        <div class="content">
+            <h2 id="maven生命周期"><a href="#maven生命周期" class="headerlink" title="maven生命周期"></a>maven生命周期</h2><p>maven抽象出了3套生命周期，其具体实现是依赖于<a href="https://maven.apache.org/plugins/index.html" target="_blank" rel="noopener">插件</a>。每套生命周期是相互独立的，都由一组阶段(Phase)组成。每套生命周期中的阶段是有顺序的，后面阶段依赖于前面的阶段，执行后面阶段会自动执行之前的阶段，但不会触发不同生命周期的阶段。<br><a id="more"></a><br><strong>下面是三个生命周期及其包含的阶段。</strong></p>
+<h3 id="Clean-Lifecycle"><a href="#Clean-Lifecycle" class="headerlink" title="Clean Lifecycle"></a>Clean Lifecycle</h3><p>清理项目，在进行真正的构建之前进行一些清理工作。</p>
+<ul>
+<li><p><code>pre-clean</code>     执行clean前需要完成的工作  </p>
+</li>
+<li><p><code>clean</code>     clean上一次构建生成的所有文件  </p>
+</li>
+<li><p><code>post-clean</code>    执行clean后需要立刻完成的工作  </p>
+</li>
+</ul>
+<p>这里的clean就是指的<code>mvn clean</code>。在一套生命周期内，运行某个阶段会自动按序运行之前阶段，<code>mvn clean=mvn pre-clean clean</code>。</p>
+<h3 id="Default-Lifecycle"><a href="#Default-Lifecycle" class="headerlink" title="Default Lifecycle"></a>Default Lifecycle</h3><p><strong>构建的核心部分</strong>，编译，测试，打包，部署等等。</p>
+<ul>
+<li><p><code>validate</code>      验证项目是否正确，并且所有必要的信息可用于完成构建过程</p>
+</li>
+<li><p><code>initialize</code>    建立初始化状态，例如设置属性</p>
+</li>
+<li><p><code>generate-sources</code></p>
+</li>
+<li><p><code>process-sources</code> </p>
+</li>
+<li><p><code>generate-resources</code></p>
+</li>
+<li><p><code>process-resources</code>     复制并处理资源文件，至目标目录，准备打包。</p>
+</li>
+<li><p><code>compile</code>     编译项目的源代码。</p>
+</li>
+<li><p><code>process-classes</code></p>
+</li>
+<li><p><code>generate-test-sources</code></p>
+</li>
+<li><p><code>process-test-sources</code> </p>
+</li>
+<li><p><code>generate-test-resources</code></p>
+</li>
+<li><p><code>process-test-resources</code>     复制并处理资源文件，至目标测试目录。</p>
+</li>
+<li><p><code>test-compile</code>     编译测试源代码。</p>
+</li>
+<li><p><code>process-test-classes</code></p>
+</li>
+<li><p><code>test</code>     使用合适的单元测试框架运行测试。这些测试代码不会被打包或部署。</p>
+</li>
+<li><p><code>prepare-package</code></p>
+</li>
+<li><p><code>package</code>     提取编译后的代码，并在其分发格式打包，如JAR，WAR或EAR文件</p>
+</li>
+<li><p><code>pre-integration-test</code>     完成执行集成测试之前所需操作。例如，设置所需的环境</p>
+</li>
+<li><p><code>integration-test</code></p>
+</li>
+<li><p><code>post-integration-test</code>     完成集成测试已全部执行后所需操作。例如，清理环境</p>
+</li>
+<li><p><code>verify</code>        运行任何检查，验证包是有效的，符合质量审核规定</p>
+</li>
+<li><p><code>install</code>     将包安装至本地仓库，以让其它项目依赖。</p>
+</li>
+<li><p><code>deploy</code>     将最终的包复制到远程的仓库，以让其它开发人员与项目共享    </p>
+</li>
+</ul>
+<h3 id="Site-Lifecycle"><a href="#Site-Lifecycle" class="headerlink" title="Site Lifecycle"></a>Site Lifecycle</h3><p>生成项目报告，站点，发布站点。</p>
+<ul>
+<li><p><code>pre-site</code>     执行一些需要在生成站点文档(html)之前完成的工作</p>
+</li>
+<li><p><code>site</code>     生成项目信息的站点文档</p>
+</li>
+<li><p><code>post-site</code>    执行一些需要在生成站点文档之后完成的工作，并且为部署做准备</p>
+</li>
+<li><p><code>site-deploy</code>     将生成的站点文档部署到特定的服务器上</p>
+</li>
+</ul>
+<h2 id="maven插件目标"><a href="#maven插件目标" class="headerlink" title="maven插件目标"></a>maven插件目标</h2><p>maven本质是一个插件框架，maven每个生命周期的每个阶段(phase)默认绑定了一个或多个插件中的一个或多个目标。用户可以自行配置或编写插件。<br><strong>一个插件对应一个或多个目标，一个插件可以绑定多个生命周期阶段。</strong></p>
+<h2 id="两种方式调用插件目标"><a href="#两种方式调用插件目标" class="headerlink" title="两种方式调用插件目标"></a>两种方式调用插件目标</h2><h3 id="插件目标绑定maven生命周期阶段"><a href="#插件目标绑定maven生命周期阶段" class="headerlink" title="插件目标绑定maven生命周期阶段"></a>插件目标绑定maven生命周期阶段</h3><p>   这分为内置绑定和自定义绑定。</p>
+<ul>
+<li>内置绑定。maven的生命周期的阶段已经默认和一些插件的目标进行了绑定。例如Maven默认将<code>maven-compiler-plugin</code>的<code>compile</code>目标与compile生命周期阶段绑定，因此命令mvn compile实际上是先定位到compile这一生命周期阶段，然后再根据绑定关系调用maven-compiler-plugin的<code>compile</code>目标。  </li>
+<li>自定义绑定。在pom.xml中进行配置，我们可以根据需要将任何插件目标绑定到任何生命周期的任何阶段。如：将maven-source-plugin的<code>jar-no-fork</code>目标绑定到default生命周期的package阶段，这样，以后在执行<code>mvn package</code>命令打包项目时，在package<strong>阶段之后</strong>会执行源代码打包。<br><strong>自定义绑定的插件目标是在绑定的生命周期阶段之后执行的</strong></li>
+</ul>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-source-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">executions</span>&gt;</span> <span class="hljs-comment">&lt;!--执行--&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">execution</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>attach-source<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span></span><br><span class="line">                    <span class="hljs-comment">&lt;!-- 要绑定到的生命周期的阶段 --&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>package<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">goals</span>&gt;</span></span><br><span class="line">                        <span class="hljs-comment">&lt;!-- 要绑定的插件的目标，在maven官网plugins上可以查到 --&gt;</span></span><br><span class="line">                        <span class="hljs-tag">&lt;<span class="hljs-name">goal</span>&gt;</span>jar-no-fork<span class="hljs-tag">&lt;/<span class="hljs-name">goal</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;/<span class="hljs-name">goals</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;/<span class="hljs-name">execution</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;/<span class="hljs-name">executions</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line">    ……</span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="运行命令时直接指定插件目标-与生命周期无关"><a href="#运行命令时直接指定插件目标-与生命周期无关" class="headerlink" title="运行命令时直接指定插件目标(与生命周期无关)"></a>运行命令时直接指定插件目标(与生命周期无关)</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn 插件目标前缀(prefix):插件目标</span><br></pre></td></tr></table></figure>
+<p>各插件目标的命令在官网可以查。例如<code>mvn archetype:generate</code> 就表示调用maven-archetype-plugin的<code>generate</code>目标，这种<strong>带冒号的调用方式与生命周期无关</strong>。</p>
+<h2 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h2><p>完成插件和生命周期的绑定后，用户还可以配置插件目标的参数，进一步调整插件目标所执行的任务，以满足项目的需求。几乎所有的Maven插件的目标都有一些可配置的参数，用户可以通过命令行和POM配置的方式来配置这些参数。</p>
+<h3 id="命令行插件配置"><a href="#命令行插件配置" class="headerlink" title="命令行插件配置"></a>命令行插件配置</h3><p>用户可以在Maven命令中使用-D参数，并伴随一个参数键=参数值得形式，来配置插件目标的参数。</p>
+<p>例如，maven-surefire-plugin提供了一个maven.test.skip参数，当其值为true的时候，就会跳过执行测试，于是在运行命令的时候，加上如下-D参数就能跳过测试。</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
+<p>参数-D是Java自带的，其功能是通过命令行设置一个Java系统属性，Maven简单的重用了该参数，在准备插件的时候检查系统属性，便实现了插件参数的配置。</p>
+<h3 id="在POM中插件全局配置"><a href="#在POM中插件全局配置" class="headerlink" title="在POM中插件全局配置"></a>在POM中插件全局配置</h3><p>并不是所有的插件参数都适合从命令行配置，有些参数的值从项目创建到项目发布都不会改变，或者说很少改变，对于这种情况，在POM文件中一次性配置就显然比重负在命令行输入要方便。</p>
+<p>用户可以在声明插件的时候，对此插件进行一个全局配置。也就是说，所有该基于该插件目标的任务，都会使用这些配置。例如我们通常会需要配置maven-compiler-plugin告诉它配置Java1.5版本的源文件，生成与JVM1.5兼容的字节码文件，代码如下：</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artfactId</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">source</span>&gt;</span>1.5<span class="hljs-tag">&lt;/<span class="hljs-name">source</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">target</span>&gt;</span>1.5<span class="hljs-tag">&lt;/<span class="hljs-name">target</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;/<span class="hljs-name">configration</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样，不管绑定到compile阶段的<code>maven-compiler-plugin:compile</code>任务，还是绑定到test-compiler阶段的<code>maven-compiler-plugin:testCompiler</code>任务，这都能够使用该配置，基于Java1.5版本进行编译。</p>
+<h3 id="POM中插件任务配置"><a href="#POM中插件任务配置" class="headerlink" title="POM中插件任务配置"></a>POM中插件任务配置</h3><p>除了为插件配置全局的参数，用户还可以为某个插件任务配置特定的参数。以maven-antrun-plugin为例，它有一个目标<code>run</code>,可以用来在Maven中调用Ant任务。用户将<code>maven-antrun-plugin:run</code>绑定到多个生命周期阶段上，再加以不同的配置，就可以让Maven在不同的生命周期执行不同的任务，代码如下:</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-antrun-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">executions</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">execution</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>ant-validate<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>validate<span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">goals</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">goal</span>&gt;</span>run<span class="hljs-tag">&lt;/<span class="hljs-name">goal</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;/<span class="hljs-name">goals</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">tasks</span>&gt;</span></span><br><span class="line">                        <span class="hljs-tag">&lt;<span class="hljs-name">echo</span>&gt;</span>Im'bound to validate phase<span class="hljs-tag">&lt;/<span class="hljs-name">echo</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;/<span class="hljs-name">tasks</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;/<span class="hljs-name">configurationo</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;/<span class="hljs-name">execution</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">execution</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>ant-verify<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>verify<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">goals</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">goal</span>&gt;</span>run<span class="hljs-tag">&lt;/<span class="hljs-name">goal</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;/<span class="hljs-name">goals</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">tasks</span>&gt;</span></span><br><span class="line">                        <span class="hljs-tag">&lt;<span class="hljs-name">echo</span>&gt;</span>I'm bound to verify phase<span class="hljs-tag">&lt;/<span class="hljs-name">echo</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;/<span class="hljs-name">tasks</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;/<span class="hljs-name">execution</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">executions</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码片段中，首先，<code>maven-antrun-plugin:run</code>与validate绑定，从而构成一个id为ant-validate的任务。插件全局配置中的configuration元素位于plugin元素下面，而这里的configuration元素则位于execution元素下，表示这是特定任务的配置，而非插件整体的配置。这个ant-validate任务配置了一个echo Ant任务，向命令行输出一段文字，表示该任务是绑定到validate阶段的。第二个任务的id为ant-verify，它绑定到了verify阶段，同样它也输出一段文字到命令行，告诉该任务绑定到了verify阶段。</p>
+<h2 id="获取插件信息"><a href="#获取插件信息" class="headerlink" title="获取插件信息"></a>获取插件信息</h2><p>仅仅理解如何配置和使用插件是不够的，当遇到一个构建任务的时候，用户还需要知道去哪里寻找合适的插件，以帮助完成任务，找到正确的插件之后，还要详细了解该插件的配置点。由于Maven的插件非常多，这其中大部分没有完善文档，因此，使用正确的插件并进行正确的配置，其实并不是一件容易的事。</p>
+<h3 id="在线插件信息"><a href="#在线插件信息" class="headerlink" title="在线插件信息"></a>在线插件信息</h3><p>基本所有的主要的Maven插件都来自Apache和Codehaus。由于Maven本身是属于Apache软件基金会的，因此他有很多的官方的插件，每天都有成千上万的Maven用户在使用这些插件，他们具有非常好的的稳定性。<br><a href="https://maven.apache.org/plugins/index.html" target="_blank" rel="noopener">官网插件介绍</a><br><a href="http://repo1.maven.org/maven2/org/apache/maven/plugins" target="_blank" rel="noopener">插件列表</a>  </p>
+<h3 id="使用maven-help-plugin描述插件"><a href="#使用maven-help-plugin描述插件" class="headerlink" title="使用maven-help-plugin描述插件"></a>使用maven-help-plugin描述插件</h3><p>除了访问在线的插件文档之外，还可以借助maven-help-plugin来获取插件的详细信息。。可以运行一下命令来获取maven-compiler-plugin2.1版本的信息：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin:2.1</span><br></pre></td></tr></table></figure>
+<p>这里执行的是maven-help-plugins的<code>describe</code>目标，在参数的plugin中输入需要描述插件的groupId、artfactId和version。Maven在命令行输出maven-compiler-plugin的简要信息。</p>
+<p>在描述插件的时候，还可以省去版本信息，让Maven自动获取最新版本来进行表述。例如：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn help:describe-Dplugin=org.apache.maven.plugins:maven-compiler-plugin</span><br></pre></td></tr></table></figure>
+<p>进一步简化，可以使用插件目标前缀替换坐标。例如：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn help:describe-Dplugin=compiler</span><br></pre></td></tr></table></figure>
+<p>如果仅仅想描述某个插件目标的信息，可以加上goal参数：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn help:describe-Dplugin=compiler-Dgoal=compile</span><br></pre></td></tr></table></figure>
+<p>如果想让maven-help-plugin输出更详细的信息，可以加上detail参数：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn help:describe -Dplugin=compiler-Ddetail</span><br></pre></td></tr></table></figure>
+<h3 id="从命令行调用插件"><a href="#从命令行调用插件" class="headerlink" title="从命令行调用插件"></a>从命令行调用插件</h3><p>如果在命令行运行mvn -h来显示mvn命令帮助，可以看到如下的信息：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">usage: mvn [options] [&lt;goal(s)&gt;] [&lt;phase(s)&gt;]</span><br><span class="line"> </span><br><span class="line">Options:</span><br><span class="line"> -am,--also-make                        If project list is specified, also</span><br><span class="line">                                        build projects required by the</span><br><span class="line">                                        list</span><br><span class="line"> -amd,--also-make-dependents            If project list is specified, also</span><br><span class="line">                                        build projects that depend on</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>该信息告诉了我们mvn命令的基本用法，options表示可用的选项，mvn命令有20多个选项，除了选项之外，mvn命令后面可以添加一个或者多个goal和phase，他们分别是指插件目标和生命周期阶段</p>
+<p>可以通过mvn命令激活生命周期阶段，从而执行那些绑定在生命周期阶段上的插件目标。但Maven还支持直接从命令行调用插件目标。Maven支持这种方式是因为有些任务不适合绑定在生命周期上，例如maven-help-plugin:describe，我们不需要在构建项目的时候去描述插件信息，又如maven-dependency-plugin:tree,我们也不需要在构建项目的时候去显示依赖树，因此这些插件目标应该通过如下方式使用：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mvn help:describe-Dplugin=compiler</span><br><span class="line">mvn dependency:tree</span><br></pre></td></tr></table></figure>
+<p>不过这里有个疑问，describe是maven-help-plugin的目标没错，但是冒号前面的help是什么呢？它既不是groupId，也不是artifactId,Maven是如何根据该信息找到对应版本插件的呢？同理为什么不是<code>maven-dependency-plugin:tree</code>,而是<code>dependency:tree</code></p>
+<p>解答该疑问之前，可以尝试一下如下命令：</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mvn org.apache.maven.plugins:maven-help-plugin:2.1:describe-Dplugin=compiler</span><br><span class="line"></span><br><span class="line">mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:tree</span><br></pre></td></tr></table></figure>
+<p>这两条命令就比较容易理解了，插件的groupId、artifactId、version以及goal都得以清晰描述。它们的效果与之前的两条命令基本是一样的，但是显然前面的命令更简洁，更容易记忆和使用。为了达到该目的，Maven引入了目标前缀的概念help是maven-help-plugin的目标前缀，dependency是maven-dependency-plugin的前缀，有了插件前缀，Maven就能找到对应的artifactId。不过，除了artifactId,Maven还需要得到groupId和version才能精确定位到某个插件。</p>
+<h2 id="插件解析机制"><a href="#插件解析机制" class="headerlink" title="插件解析机制"></a>插件解析机制</h2><h3 id="仓库元数据"><a href="#仓库元数据" class="headerlink" title="仓库元数据"></a>仓库元数据</h3><h4 id="插件元数据"><a href="#插件元数据" class="headerlink" title="插件元数据"></a>插件元数据</h4><p><strong>主要用于解释插件版本</strong></p>
+<blockquote>
+<p>在远程仓库存放的位置结构:<br><a href="http://repo1.maven.org/maven2/groupId/artifactId/maven-metadata.xml" target="_blank" rel="noopener">http://repo1.maven.org/maven2/groupId/artifactId/maven-metadata.xml</a>  </p>
+</blockquote>
+<p>这里的groupId指的就是构件的groupId，artifactId指的是构件的artifactId，例如插件maven-compiler-plugin的元数据链接:<br><a href="http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/maven-metadata.xml" target="_blank" rel="noopener">http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/maven-metadata.xml</a><br>内容如下：</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">versioning</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">latest</span>&gt;</span>3.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">latest</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">release</span>&gt;</span>3.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">release</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">versions</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0-beta-1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.4<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.5.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.6.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.6.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.6.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">versions</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">lastUpdated</span>&gt;</span>20170904193138<span class="hljs-tag">&lt;/<span class="hljs-name">lastUpdated</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;/<span class="hljs-name">versioning</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="插件前缀元数据"><a href="#插件前缀元数据" class="headerlink" title="插件前缀元数据"></a>插件前缀元数据</h4><p><strong>主要用于解释插件前缀</strong></p>
+<blockquote>
+<p>在远程仓库存放的位置结构:<br><a href="http://repo1.maven.org/maven2/groupId/maven-metadata.xml" target="_blank" rel="noopener">http://repo1.maven.org/maven2/groupId/maven-metadata.xml</a></p>
+</blockquote>
+<p>我们使用一般使用官方的插件就够了，官方插件默认的groupId为org.apache.maven.plugins，对应的链接为<br><a href="http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-metadata.xml" target="_blank" rel="noopener">http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-metadata.xml</a><br>下面是前缀元数据xml文件截取的部分内容</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Apache Maven ACR Plugin<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">prefix</span>&gt;</span>acr<span class="hljs-tag">&lt;/<span class="hljs-name">prefix</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-acr-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Apache Maven Ant Plugin<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">prefix</span>&gt;</span>ant<span class="hljs-tag">&lt;/<span class="hljs-name">prefix</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-ant-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Maven ANTLR Plugin<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">prefix</span>&gt;</span>antlr<span class="hljs-tag">&lt;/<span class="hljs-name">prefix</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-antlr-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    ……</span><br><span class="line">  <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="插件仓库"><a href="#插件仓库" class="headerlink" title="插件仓库"></a>插件仓库</h3><p>与依赖仓库一样，插件构件同样基于坐标存储在Maven仓库中，在需要的时候Maven会从本地仓库查找插件，如果不存在，则从远程仓库查找。找到插件之后，再下载到本地仓库使用。</p>
+<p>需要注意的是，Maven会区别对待依赖的远程仓库与插件的远程仓库。前面提到如何配置远程仓库，但是这种配置只对一般依赖有效果，当Maven需要的依赖在本地仓库不存在时，它会去所配置的远程仓库中查找，可是当Maven需要的插件在本地仓库存在时，他就不会去那些远程仓库查找。</p>
+<p>不同于repositories及其repository子元素，插件的远程仓库使用pluginRepositories和pluginReposirory配置，例如，Maven的超级pom:pom-4.0.0.xml配置了如下的插件远程仓库,代码如下：</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">pluginRepositories</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">pluginRepository</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>central<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Maven Plugin Repository<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://repo1.maven.org/maven2<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">layout</span>&gt;</span>default<span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">snapshots</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">releases</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">updatePolicy</span>&gt;</span>never<span class="hljs-tag">&lt;/<span class="hljs-name">updatePolicy</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">releases</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">pluginRepository</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">pluginRepositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>一般来说，中央仓库所包含的插件完全能够满足我们的需要，因此也不需要配置其他的插件仓库。只有在很少的情况下，项目使用的插件无法在中央仓库找到，或者自己编写的插件，这个时候可以参考上述的配置，在POM或者settings.xml中加入其他的插件仓库配置。</p>
+<h3 id="插件的默认groupId"><a href="#插件的默认groupId" class="headerlink" title="插件的默认groupId"></a>插件的默认groupId</h3><p>在POM配置中配置插件的时候，如果该插件是Maven的官方插件（即如果其groupId为org.apache.maven.plugins），就可以省略groupId配置，见代码清单：</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">source</span>&gt;</span>1.5<span class="hljs-tag">&lt;/<span class="hljs-name">source</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">target</span>&gt;</span>1.5<span class="hljs-tag">&lt;/<span class="hljs-name">target</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面省略了配置maven-compiler-plugin的groupId，Maven在解析该插件的时候，会自动用默认groupId org.apache.maven.plugins补齐。但是并不推荐使用Maven的这一机制，这样虽然可以省略一些配置，但是这样的配置会让团队中不熟悉Maven的成员感到费解，况且能省略的配置也就仅仅一行而已。</p>
+<h3 id="解析插件版本"><a href="#解析插件版本" class="headerlink" title="解析插件版本"></a>解析插件版本</h3><blockquote>
+<p>同样是为了简化插件的配置和使用，在用户没有提供插件版本的情况下，Maven会自动解析插件版本。<br>首先，Maven的超级POM中为所有核心插件设定了版本,超级POM是所有Maven项目的父POM，所有项目都会继承这个超级POM配置，因此，即使用户不加任何配置，Maven使用核心插件的时候，他们的版本都已经确定了，这些插件包括maven-clean-plugin、maven-compiler-plugin、maven-surefire-plugin等。</p>
+</blockquote>
+<p>上面说法是来自其他博客，我表示质疑，我使用的是maven3.5.4，在超级pom中并没有发现其为所有核心插件设定了版本。这点不明白，以后搞清楚再补充。</p>
+<p>如果用户使用某个插件时没有设定版本，而这个插件又不属于核心插件范畴，Maven就会去检查所有仓库中的可用版本，然后做出选择。以maven-compiler-plugin为例，他在中央仓库的<a href="http://repo1.maven.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/maven-metadata.xml" target="_blank" rel="noopener">仓库元数据</a></p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">versioning</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">latest</span>&gt;</span>3.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">latest</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">release</span>&gt;</span>3.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">release</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">versions</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0-beta-1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.4<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.5.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.6.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.6.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.6.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">versions</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">lastUpdated</span>&gt;</span>20170904193138<span class="hljs-tag">&lt;/<span class="hljs-name">lastUpdated</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;/<span class="hljs-name">versioning</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Maven遍历本地仓库和所有远程插件仓库，将该路径下的仓库元数据归并后，就能计算出latest和release的值。latest表示所有仓库中该构件的最新版本，而release表示最新的非快照版本。在Maven2中，插件的版本会被解析至latest。也就是说，当用户使用某个非核心插件且没有声明版本的时候，Maven会将版本解析为所有可用仓库中的最新版本，而这个版本也可能是快照版本的。</p>
+<p>当插件的版本为快照版本的时，就会出现潜在的问题。Maven会基于更新策略，检查并使用快照的更新。某个插件可能昨天还好好的，今天就出错了。其原因是因为这个版本的插件发生了变化，为了防止这类问题，Maven3调整了解析机制，当插件没有声明版本的时候，不再解析至latest，而是使用release。这样就可以避免由于快照频繁更新而导致的插件行为不稳定。</p>
+<p>依赖Maven解析插件版本其实是不推荐的做法，即使Maven3将版本解析到最新的非快照版本，也还是唯有潜在的不稳定性。例如，可能某个构件发布了一个新的版本，而这个版本的行为与之前的的版本发生了变化，这种变化就可能导致项目构建失败。因此，使用插件的时候，应该一直显式的设定版本，这也解释了Maven为什么要在超级POM中为核心插件设定版本。</p>
+<h3 id="解析插件前缀"><a href="#解析插件前缀" class="headerlink" title="解析插件前缀"></a>解析插件前缀</h3><p>mvn命令行支持使用插件前缀来简化插件的调用，现在解释Maven如何根据插件前缀解析到插件的坐标的。</p>
+<p>插件前缀与<code>groupId:artifactId</code>是一一对应的，这种匹配关系存储在仓库元数据中。这里的仓库元数据不是groupId/artifactId/maven-metadata.xml，而是groupId/maven-metadata.xml。当Maven解析前缀:</p>
+<ul>
+<li>首先会基于默认的groupId(org.apache.maven.plugins)归并所有插件仓库的元数据org/apache/maven/plugins/maven-metadata.xml</li>
+<li>其次检查归并后的元素，根据前缀(prefix)找到对应的artifactId；</li>
+<li>结合artifactId和groupId，最后获取version，这是就得到了完整的插件坐标。</li>
+<li>若org/apache/maven/plugins/maven-metadata.xml没有记录该插件前缀，则接着检查其他groupId下的元数据，如org/codehaus/mojo/maven-metadata.xml以及用户自定义的插件。若所有元数据都不包含该前缀，则报错。</li>
+</ul>
+<blockquote>
+<p>插件前缀元数据部分内容:</p>
+</blockquote>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">metadata</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Apache Maven ACR Plugin<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">prefix</span>&gt;</span>acr<span class="hljs-tag">&lt;/<span class="hljs-name">prefix</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-acr-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Apache Maven Ant Plugin<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">prefix</span>&gt;</span>ant<span class="hljs-tag">&lt;/<span class="hljs-name">prefix</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-ant-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Maven ANTLR Plugin<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">prefix</span>&gt;</span>antlr<span class="hljs-tag">&lt;/<span class="hljs-name">prefix</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-antlr-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span></span><br><span class="line">    ……</span><br><span class="line">  <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">metadata</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<p><strong>321笨丫头</strong>,<a href="http://blog.sina.com.cn/s/blog_e01142dc0102wup3.html" target="_blank" rel="noopener">maven install、maven clean、project clean </a><br><strong>lofty</strong>,<a href="https://www.cnblogs.com/wangwei-beijing/p/6535081.html" target="_blank" rel="noopener">Maven——生命周期与插件</a></p>
+</blockquote>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/maven/">maven</a>, <a class="has-link-grey -link" href="/tags/maven插件/">maven插件</a>, <a class="has-link-grey -link" href="/tags/maven生命周期/">maven生命周期</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechatpay.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/post/9d66f127.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">maven(三):pom.xml详解</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/post/25edb67f.html">
+                <span class="level-item">maven(一):构建命令、构件和库</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'snQG2BlnuDUYlMKA3QV7n02L-gzGzoHsz',
+        app_key: '74MpPI7wyUFhF7AQyckc8Uad',
+        placeholder: '不说点什么吗……(づ′▽`)づ'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Yang Yuanming">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Yang Yuanming
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Web Developer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Earth, Solar System</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        9
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/yangyuanming">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/yangyuanming">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/yangyuanming" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Yuanming</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/工具学习/">
+            <span class="level-start">
+                <span class="level-item">工具学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/工具学习/maven/">
+            <span class="level-start">
+                <span class="level-item">maven</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/maven/" style="font-size: 20px;">maven</a> <a href="/tags/maven依赖/" style="font-size: 10px;">maven依赖</a> <a href="/tags/maven依赖-插件管理/" style="font-size: 10px;">maven依赖&插件管理</a> <a href="/tags/maven库/" style="font-size: 10px;">maven库</a> <a href="/tags/maven插件/" style="font-size: 10px;">maven插件</a> <a href="/tags/maven构建命令/" style="font-size: 10px;">maven构建命令</a> <a href="/tags/maven生命周期/" style="font-size: 10px;">maven生命周期</a> <a href="/tags/maven聚合-继承/" style="font-size: 10px;">maven聚合&继承</a> <a href="/tags/pom-xml/" style="font-size: 10px;">pom.xml</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/post/ffde8881.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(六):依赖管理和插件管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-13T15:29:00.000Z">2018-08-13</time></div>
+                    <a href="/post/ffde8881.html" class="has-link-black-ter is-size-6">maven(六):依赖管理和插件管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/post/86efede5.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(五):聚合和继承">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-12T20:22:00.000Z">2018-08-12</time></div>
+                    <a href="/post/86efede5.html" class="has-link-black-ter is-size-6">maven(五):聚合和继承</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/post/7e899530.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(四):依赖">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-12T14:00:00.000Z">2018-08-12</time></div>
+                    <a href="/post/7e899530.html" class="has-link-black-ter is-size-6">maven(四):依赖</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/post/9d66f127.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(三):pom.xml详解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-07T22:03:00.000Z">2018-08-07</time></div>
+                    <a href="/post/9d66f127.html" class="has-link-black-ter is-size-6">maven(三):pom.xml详解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/post/fa942646.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(二):生命周期和插件">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-07-24T07:30:00.000Z">2018-07-24</time></div>
+                    <a href="/post/fa942646.html" class="has-link-black-ter is-size-6">maven(二):生命周期和插件</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven/">
+                        <span class="tag">maven</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven依赖/">
+                        <span class="tag">maven依赖</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven依赖-插件管理/">
+                        <span class="tag">maven依赖&amp;插件管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven库/">
+                        <span class="tag">maven库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven插件/">
+                        <span class="tag">maven插件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven构建命令/">
+                        <span class="tag">maven构建命令</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven生命周期/">
+                        <span class="tag">maven生命周期</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven聚合-继承/">
+                        <span class="tag">maven聚合&amp;继承</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/pom-xml/">
+                        <span class="tag">pom.xml</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/post/ffde8881.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(六):依赖管理和插件管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-13T15:29:00.000Z">2018-08-13</time></div>
+                    <a href="/post/ffde8881.html" class="has-link-black-ter is-size-6">maven(六):依赖管理和插件管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/post/86efede5.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(五):聚合和继承">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-12T20:22:00.000Z">2018-08-12</time></div>
+                    <a href="/post/86efede5.html" class="has-link-black-ter is-size-6">maven(五):聚合和继承</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/post/7e899530.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(四):依赖">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-12T14:00:00.000Z">2018-08-12</time></div>
+                    <a href="/post/7e899530.html" class="has-link-black-ter is-size-6">maven(四):依赖</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/post/9d66f127.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(三):pom.xml详解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-07T22:03:00.000Z">2018-08-07</time></div>
+                    <a href="/post/9d66f127.html" class="has-link-black-ter is-size-6">maven(三):pom.xml详解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/post/fa942646.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="maven(二):生命周期和插件">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-07-24T07:30:00.000Z">2018-07-24</time></div>
+                    <a href="/post/fa942646.html" class="has-link-black-ter is-size-6">maven(二):生命周期和插件</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/工具学习/">工具学习</a> / <a class="has-link-grey -link" href="/categories/工具学习/maven/">maven</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven/">
+                        <span class="tag">maven</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven依赖/">
+                        <span class="tag">maven依赖</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven依赖-插件管理/">
+                        <span class="tag">maven依赖&amp;插件管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven库/">
+                        <span class="tag">maven库</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven插件/">
+                        <span class="tag">maven插件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven构建命令/">
+                        <span class="tag">maven构建命令</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven生命周期/">
+                        <span class="tag">maven生命周期</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/maven聚合-继承/">
+                        <span class="tag">maven聚合&amp;继承</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/pom-xml/">
+                        <span class="tag">pom.xml</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/avatar.png" alt="maven(二):生命周期和插件" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Yang Yuanming&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
