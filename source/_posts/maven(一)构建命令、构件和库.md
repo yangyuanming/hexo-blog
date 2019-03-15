@@ -1,6 +1,5 @@
 ---
 title: 'maven(一):构建命令、构件和库'
-comment: true
 tags:
   - maven
   - maven构建命令

@@ -1,6 +1,5 @@
 ---
 title: 'maven(四):依赖'
-comment: true
 tags:
   - maven
   - maven依赖

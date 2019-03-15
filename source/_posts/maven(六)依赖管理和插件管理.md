@@ -1,6 +1,5 @@
 ---
 title: 'maven(六):依赖管理和插件管理'
-comment: true
 tags:
   - maven
   - maven依赖&插件管理

@@ -1,6 +1,5 @@
 ---
 title: 'maven(五):聚合和继承'
-comment: true
 tags:
   - maven
   - maven聚合&继承

@@ -1,6 +1,5 @@
 ---
 title: 'maven(二):生命周期和插件'
-comment: true
 tags:
   - maven
   - maven生命周期

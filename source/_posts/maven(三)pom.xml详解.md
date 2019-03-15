@@ -1,6 +1,5 @@
 ---
 title: 'maven(三):pom.xml详解'
-comment: true
 tags:
   - maven
   - pom.xml
