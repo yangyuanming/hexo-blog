@@ -67,7 +67,7 @@ comment:
     app_id: snQG2BlnuDUYlMKA3QV7n02L-gzGzoHsz        # (required) LeanCloud application id
     app_key: 74MpPI7wyUFhF7AQyckc8Uad      # (required) LeanCloud application key
     notify: false           # (optional) receive email notification
-    verify: false          # (optional) show verification code
+    verify: true          # (optional) show verification code
     placeholder: 不说点什么吗……(づ′▽`)づ   # (optional) comment box placeholder text 
     #pageSize: 10 # pagination siz
     #avatar: mm # gravatar style
