@@ -10,7 +10,8 @@ notifications:
     on_failure: always # default: always
 
 install:
-  - npm rebuild node-sass
+  - yarn remove node-sass
+  - yarn add node-sass@latest
   - npm install
 
 script:
