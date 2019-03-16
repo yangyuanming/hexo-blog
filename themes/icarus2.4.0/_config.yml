@@ -63,12 +63,14 @@ search:
 # Comment plugin settings
 # http://ppoffice.github.io/hexo-theme-icarus/categories/Configuration/Comment-Plugins
 comment:
-    type: valine
-    app_id: snQG2BlnuDUYlMKA3QV7n02L-gzGzoHsz        # (required) LeanCloud application id
-    app_key: 74MpPI7wyUFhF7AQyckc8Uad      # (required) LeanCloud application key
-    notify: false           # (optional) receive email notification
-    verify: true          # (optional) show verification code
-    placeholder: 不说点什么吗……(づ′▽`)づ   # (optional) comment box placeholder text 
+    type: disqus
+    shortname: yangyuanming
+    # type: valine
+    # app_id: snQG2BlnuDUYlMKA3QV7n02L-gzGzoHsz        # (required) LeanCloud application id
+    # app_key: 74MpPI7wyUFhF7AQyckc8Uad      # (required) LeanCloud application key
+    # notify: false           # (optional) receive email notification
+    # verify: true          # (optional) show verification code
+    # placeholder: 不说点什么吗……(づ′▽`)づ   # (optional) comment box placeholder text 
     #pageSize: 10 # pagination siz
     #avatar: mm # gravatar style
     #guest_info: nick,mail,link # custom comment header
