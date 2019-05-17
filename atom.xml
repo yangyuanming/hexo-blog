@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Memory Capsule</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://blog.icircles.top/"/>
+  <updated>2019-05-17T11:39:44.305Z</updated>
+  <id>https://blog.icircles.top/</id>
+  
+  <author>
+    <name>Yang Yuanming</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>maven(一):构建命令、构件和库</title>
+    <link href="https://blog.icircles.top/post/25edb67f.html"/>
+    <id>https://blog.icircles.top/post/25edb67f.html</id>
+    <published>2018-07-22T11:42:00.000Z</published>
+    <updated>2019-05-17T11:39:44.305Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/yangyuanming/" target="_blank" rel="noopener">我在这</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/yangyuanming/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;我在这&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="工具学习" scheme="https://blog.icircles.top/categories/%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="maven" scheme="https://blog.icircles.top/categories/%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/maven/"/>
+    
+    
+      <category term="maven" scheme="https://blog.icircles.top/tags/maven/"/>
+    
+      <category term="maven构建命令" scheme="https://blog.icircles.top/tags/maven%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/"/>
+    
+      <category term="maven库" scheme="https://blog.icircles.top/tags/maven%E5%BA%93/"/>
+    
+  </entry>
+  
+</feed>
