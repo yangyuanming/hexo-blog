@@ -62,7 +62,7 @@ article:
     # Whether to show article thumbnail images
     thumbnail: true
     # Whether to show estimate article reading time
-    readtime: true
+    readtime: false
 # Search plugin settings
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Search
 search:
