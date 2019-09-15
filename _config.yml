@@ -92,7 +92,8 @@ feed:
   limit: 20
 
 ## Themes: https://hexo.io/themes/
-theme: icarus2.6.0
+theme: inside
+#theme: icarus2.6.0
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
