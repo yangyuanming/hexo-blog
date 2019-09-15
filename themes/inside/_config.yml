@@ -4,8 +4,28 @@
 
 # Appearance
 appearance:
+  mode:
+      moon: 
+          accent_color: "#f44336"
+          foreground_color: "#d8d8d8"
+          border_color: "#444"
+          background: "#202020"
+          sidebar_background: "#262626"
+          card_background: "#252525"
+      sun:
+          foreground_color: "#363636"
+          border_color: "#e0e0e0"
+          background: "#f3f6f7"
+          sidebar_background: "#607d8b linear-gradient(to bottom,#607d8b 0%,#26323b 100%)"
+          card_background: "#fff" 
+      paper:
+          background: "#e2d3b6 url(//www.toptal.com/designers/subtlepatterns/patterns/vintage-concrete.png)"
+          sidebar_background: "#e2d3b6 url(//www.toptal.com/designers/subtlepatterns/patterns/vintage-concrete.png)"
+          card_background: "url(//www.toptal.com/designers/subtlepatterns/patterns/paper.png)"
+          foreground_color: "#363636"
+          border_color: "#fff"
   # Accent color, default '#2a2b33'
-  accent_color:
+  accent_color: '#ff5722'
   # Font color, default '#363636'
   foreground_color:
   # Border color, default '#e0e0e0'
@@ -22,20 +42,20 @@ appearance:
   # 'url(//www.toptal.com/designers/subtlepatterns/patterns/confectionary.png) #f5f7fa'
 
   # Maximum width of content
-  # content_width: 640
+  content_width: 640
 
   # Fonts
   font:
     # Url of font css file
     # Below is a font set containing Baloo Bhaijaan, Josefin Sans, Montserrat and Inconsolata from Google Fonts.
-    url: //fonts.googleapis.com/css?family=Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat
+    url: //fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC|Lobster|cursive|Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat
 
     # Base font which applied to body
-    base: "'Josefin Sans', 'PingFang SC'"
+    base: "'Josefin Sans', 'PingFang SC', Microsoft YaHei"
     # Sidebar author font, fallback to `base`
-    logo:
+    logo: Lobster 
     # Sidebar menu font, fallback to `base`
-    menu: 'Baloo Bhaijaan'
+    menu: 'cursive'
     # Font for:
     # - percentage on the fab button
     # - month text on archives page
@@ -91,14 +111,14 @@ profile:
   # You can set Avatar URL directly
   # avatar:
 
-  bio: Awesome guy.
+  bio: Nothing!
 
 # Sidebar navigation links
 menu:
-  Home: /
-  About: /about
-  Links: /links
-  Github: https://github.com/yangyuanming
+  🏠 Home: /
+  👻 About: /about
+  🔗 Links: /links
+  🔍 Search: /search
 
 # Social media URL
 # Try to sort by changing the order of the keys
@@ -130,14 +150,14 @@ footer:
   # copyright: '&copy; 2019 • <a href="">John Doe</a>'
 
   # Set to false to hide Hexo link.
-  # powered: false
+  powered: false
 
   # Set to false to hide theme link.
-  # theme: false
+  theme: false
 
   # Custom text.
-  # custom: Hosted by <a target="_blank" rel="external nofollow"
-  #   href="https://pages.github.com/"><b>Github Pages</b></a>
+  custom: <a  rel="external nofollow"
+    href="#"><b>Time And Tide Wait For No Man</b></a>
 
 
 # ---------------------------------------------------------------
@@ -147,22 +167,22 @@ footer:
 # Page
 page:
   # Display Table of content, default to `true`
-  # toc: false
+  toc: false
 
   # Display reward, default to `false`
-  # reward: true
+  reward: true
 
   # Display copyright notice, default to `false`
-  # copyright: true
+  copyright: true
 
 
 # Post
 post:
-  per_page: 10
+  per_page: 7
 
   # The following settings are the same as the page
-  # toc: false
-  # reward: true
+  toc: true
+  reward: true
   copyright: true
 
 # Archive
@@ -180,18 +200,18 @@ category:
 # Search
 search:
   # Display a quick search button in fab
-  # fab: true
+  fab: true
 
   # Render a standalone searh page which can be configured in sidebar menu such as `Search: /search`
-  # page: true
+  page: true
 
   # Local search
-  # adapter:
-  #   range:
-  #     - post
-  #     - page
-  #   per_page: 20
-  #   limit: 10000
+  adapter:
+    range:
+      - post
+      - page
+    per_page: 10
+    limit: 20000
 
   # Custom search
   # adapter:
@@ -237,29 +257,33 @@ assets:
   # suffix: '?m=webp&q=80'
 
 # Table of content, enabled by default, set to `false` to disable.
-toc:
+toc: 
   # The depth of toc, default to `3`, maximum to `4`.
-  # depth: 3
+  depth: 4
 
   # Showing index before title, eg. 1.1 title, default to `true`
-  # index: true
+  index: false
 
 # Reward
 reward:
   # Text which shows at the top.
-  # text: Buy me a cup of coffee ☕.
+  text: Buy me a cup of coffee ☕.
 
   # Payment Methods
   # qrcode, url and text must be set at least one
   # wechat, alipay, paypal and bitcoin has a built-in icon,
   # use `name` to apply
-  # methods:
-  #   - name: paypal
-  #     qrcode: paypal.jpg
-  #     url: https://paypal.me/imelmore
-  #     text: This is a paypal payment link
-  #     color: '#09bb07'
-
+  methods:
+    - name: alipay
+      qrcode: /images/alipay.png
+      #url: https://paypal.me/imelmore
+      #text: 谢谢支持！
+      color: '#09bb07'
+    - name: wechat
+      qrcode: /images/wechatpay.png
+      #url: https://paypal.me/imelmore
+      #text: 谢谢支持！
+      color: '#09bb07'
 # Copyright notice
 # It is possible to use front matter `copyright` to override this setting.
 copyright:
@@ -274,10 +298,10 @@ copyright:
   #   rel=\"external nofollow\" target=\"_blank\">CC BY-NC-ND 4.0</a>)
 
   # Display published date, default to `false`
-  # published: false
+  published: false
 
   # Display updated date, default to `false`
-  # updated: false
+  updated: true
 
   # Custom text, override above settings
   # custom: my copyright
@@ -377,6 +401,13 @@ pwa:
   #       sizes: 144x144
   #       type: image/png
 
+
+plugins:
+  # 由于 hexo 不会将下划线开头的文件复制到 public 目录，
+  # 所以需要额外复制 _theme.js 并重命名为非下划线开头的名称
+  - theme.js
+  - position: sidebar
+    template: snippets/auto-theming.html
 # Plugins
 # Inject html snippet to a specified position, Or global inject scripts/styles.
 # The code will take advantage of babel, uglifyjs and html-minifier if possible.
