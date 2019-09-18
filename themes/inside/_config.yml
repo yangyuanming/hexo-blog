@@ -111,7 +111,7 @@ profile:
   # You can set Avatar URL directly
   # avatar:
 
-  bio: Nothing!
+  bio: Time And Tide Wait For No Man.
 
 # Sidebar navigation links
 menu:
@@ -156,8 +156,8 @@ footer:
   theme: false
 
   # Custom text.
-  custom: <a  rel="external nofollow"
-    href="#"><b>Time And Tide Wait For No Man</b></a>
+  # custom: <a  rel="external nofollow"
+  #   href="#"><b>Time And Tide Wait For No Man</b></a>
 
 
 # ---------------------------------------------------------------
