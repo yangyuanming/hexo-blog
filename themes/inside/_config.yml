@@ -115,10 +115,10 @@ profile:
 
 # Sidebar navigation links
 menu:
+  🔍 Search: /search
   🏠 Home: /
   👻 About: /about
   🔗 Links: /links
-  🔍 Search: /search
 
 # Social media URL
 # Try to sort by changing the order of the keys
