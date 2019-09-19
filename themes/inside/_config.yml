@@ -48,10 +48,10 @@ appearance:
   font:
     # Url of font css file
     # Below is a font set containing Baloo Bhaijaan, Josefin Sans, Montserrat and Inconsolata from Google Fonts.
-    url: //fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC|Lobster|cursive|Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat
+    url: //fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC|Lobster|cursive|Baloo+Bhaijaan|Inconsolata|Josefin+Sans|Montserrat|Microsoft+YaHei
 
     # Base font which applied to body
-    base: "'Josefin Sans', 'PingFang SC', Microsoft YaHei"
+    base: "'Josefin Sans', 'PingFang SC','Microsoft YaHei'"
     # Sidebar author font, fallback to `base`
     logo: Lobster 
     # Sidebar menu font, fallback to `base`
@@ -66,7 +66,7 @@ appearance:
     # fallback to `base`
     label: Montserrat
     # Headline(h1, h2, h3, h4, h5, h6) font, fallback to `base`
-    heading:
+    heading: PingFang SC 
     # Code and code block
     code: Inconsolata, monospace
     # Base font for printing which applied to body
