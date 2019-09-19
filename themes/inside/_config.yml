@@ -66,7 +66,7 @@ appearance:
     # fallback to `base`
     label: Montserrat
     # Headline(h1, h2, h3, h4, h5, h6) font, fallback to `base`
-    heading: PingFang SC 
+    heading:  
     # Code and code block
     code: Inconsolata, monospace
     # Base font for printing which applied to body
